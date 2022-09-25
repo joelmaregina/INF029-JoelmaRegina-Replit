@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "Utils.h"
 
 #define VALIDO 1
@@ -14,3 +17,8 @@ typedef struct aluno{
 } Aluno;
 
 int mainAluno(Aluno listaAluno[], int qtdAluno);
+int cadastrarAluno(Aluno aluno[], int qtd);
+void listaAlunos(Aluno lista[], int qtd);
+int getProximaMatriculaA();
+Aluno validarDados();
+

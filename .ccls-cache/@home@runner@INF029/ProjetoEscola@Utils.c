@@ -120,3 +120,11 @@ int validarCPF(char cpf[])
     
     return valor;
 }
+
+int validarProfessorDisciplina (int codigoProfessor){
+  int valor = INVALIDO;
+
+  
+  
+  return valor;
+}

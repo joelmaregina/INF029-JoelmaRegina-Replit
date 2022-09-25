@@ -1,17 +1,24 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "Utils.h"
+// #include "Professor.h"
 
 #define VALIDO 1
 #define INVALIDO 0
 #define TAMNOME 41
-#define TAMMATRICULA 12
-#define TAMCODDISC 8
 
 typedef struct
 {
     char nome[TAMNOME];
-    int codigoDisciplina[TAMCODDISC];
-    char semestre;
-    Professor nomeProfessor;
+    int codigoDisciplina;
+    int semestre;
+    int vagas;
+    char nomeProfessor[TAMNOME];
 } Disciplina;
 
-Disciplina cadastrarDisciplina();
+int menuDisciplina();
+int mainDisciplina(Disciplina listaDisciplina[], int qtdDisciplina);
+int cadastrarDisciplina(Disciplina disciplina[], int qtd);
+void listaDisciplinas(Disciplina lista[], int qtd);
+int getCodigoDisciplina();
