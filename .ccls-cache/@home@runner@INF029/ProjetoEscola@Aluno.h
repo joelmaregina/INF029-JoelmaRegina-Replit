@@ -19,6 +19,9 @@ typedef struct aluno{
 int mainAluno(Aluno listaAluno[], int qtdAluno);
 int cadastrarAluno(Aluno aluno[], int qtd);
 void listaAlunos(Aluno lista[], int qtd);
+int menuAtualizarAluno();
+int atualizaAluno (Aluno lista[], int qtd);
+int excluirAluno(Aluno lista[], int qtd);
 int getProximaMatriculaA();
 Aluno validarDados();
 

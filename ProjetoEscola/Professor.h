@@ -19,4 +19,7 @@ typedef struct professor{
 int mainProfessor(Professor listaProfessor[], int qtdAluno);
 int cadastrarProfessor(Professor professor[], int qtd);
 void listaProfessores(Professor lista[], int qtd);
+int menuAtualizarProfessor();
+int atualizarProfessor (Professor professor[], int qtd);
+int excluirProfessor(Professor professor[], int qtd);
 int getProximaMatriculaP();

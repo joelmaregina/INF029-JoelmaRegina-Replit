@@ -6,14 +6,13 @@
 int menuAluno() {
   int opcao;
   printf("\n============ ÁREA DO ALUNO ============ \n");
-  printf("Digite a sua opção:\n1 - Cadastrar Aluno \n2 - Listar Alunos \n3 - "
-         "Excluir aluno \n0 - Retornar ao menu anterior\n");
+  printf("Digite a sua opção:\n1 - Cadastrar Aluno \n2 - Listar Alunos \n3 - Atualiza Aluno\n 4 - Excluir aluno \n0 - Retornar ao menu anterior\n");
   scanf("%d", &opcao);
   return opcao;
 }
 
 int mainAluno(Aluno listaAluno[], int qtdAluno) {
-
+  
   int opcao = 1;
 
   while (opcao != 0) {
@@ -33,7 +32,11 @@ int mainAluno(Aluno listaAluno[], int qtdAluno) {
         break;
       }
       case 3: {
-  
+        atualizaAluno(listaAluno, qtdAluno);
+        break;
+      }
+      case 4: {
+        qtdAluno = excluirAluno(listaAluno, qtdAluno);
         break;
       }
       default:
@@ -147,5 +150,79 @@ int getProximaMatriculaA() {
   matriculaAtualAluno++;
   return matriculaAtualAluno;
 }
+
+int menuAtualizarAluno() {
+  int opcao;
+  printf("\n============ ATUALIZAR ALUNO ============ \n");
+  printf("Digite a sua opção:\n1 - Alterar nome \n2 - Alterar data de nascimento \n3 - Atualiza Aluno\n 4 - Excluir aluno \n0 - Retornar ao menu anterior\n");
+  scanf("%d", &opcao);
+  return opcao;
+}
+
+int atualizaAluno (Aluno lista[], int qtd){
+  int numMatricula;
+  printf("Digite a matrícula do aluno que você quer Atualizar: ");
+  scanf("%d", &numMatricula);
+  int opcao = 1;
+
+  while (opcao != 0) {
+    opcao = menuAluno();
+
+    switch (opcao) {
+      case 0:{
+        printf("\n ... RETORNANDO AO MENU ANTERIOR ... \n\n");
+        break;
+      } 
+      case 1: {
+        qtdAluno = cadastrarAluno(listaAluno, qtdAluno);
+        break;
+      }
+      case 2: {
+        listaAlunos(listaAluno, qtdAluno);
+        break;
+      }
+      case 3: {
+        atualizaAluno(listaAluno, qtdAluno);
+        break;
+      }
+      case 4: {
+        qtdAluno = excluirAluno(listaAluno, qtdAluno);
+        break;
+      }
+      default:
+        printf("Opção Inválida. Digite um número entre 0 e 4.");
+    }
+  }
+  return qtdAluno;
+  
+  
+}
+
+int excluirAluno(Aluno lista[], int qtd){
+  int numMatricula;
+  
+  printf("Digite a matrícula do aluno que você quer excluir: ");
+  scanf("%d", &numMatricula);
+
+  for (int i = 0; i < qtd; i++) {
+    if (lista[i].matricula == numMatricula){
+      for (int j = i ; j < qtd-1; j++){
+        lista[j].matricula = lista[j+1].matricula;
+        strcpy(lista[j].nome, lista[j+1].nome);
+        lista[j].nascimento.dia = lista[j+1].nascimento.dia;
+        lista[j].nascimento.mes = lista[j+1].nascimento.mes;
+        lista[j].nascimento.ano = lista[j+1].nascimento.ano;
+        strcpy(lista[j].cpf, lista[j+1].cpf);
+        lista[j].sexo = lista[j+1].sexo;
+      }
+      printf("------ Aluno excluído com sucesso! ------");
+      qtd--;
+      return qtd;
+    }
+  }
+  printf("\n ----- Número de matricula não encontrado! ----- \n");
+  return qtd;
+}
+
 
 // gcc Escola.c Utils.c Aluno.c -o  esc

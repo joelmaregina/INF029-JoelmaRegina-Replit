@@ -1,0 +1,1 @@
+gcc Escola.c Aluno.c Utils.c Professor.c Disciplina.c -o escola

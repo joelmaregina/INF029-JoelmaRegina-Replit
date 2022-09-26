@@ -4,7 +4,7 @@
 int menuDisciplina() {
   int opcao;
   printf("\n========== ÁREA DAS DISCIPLINAS ========== \n");
-  printf("Digite a sua opção:\n1 - Cadastrar Disciplina \n2 - Listar Disciplinas \n3 - Excluir Disciplinas \n0 - Retornar ao menu anterior\n");
+  printf("Digite a sua opção:\n  1 - Cadastrar Disciplina \n  2 - Listar Disciplinas \n  3 - Atualizar Disciplina\n  4 - Excluir Disciplina \n  0 - Retornar ao menu anterior\n");
   scanf("%d", &opcao);
   return opcao;
 }
@@ -31,7 +31,11 @@ int mainDisciplina(Disciplina listaDisciplina[], int qtdDisciplina)
         break;
       }
       case 3: {
-        
+        atualizarDisciplina(listaDisciplina, qtdDisciplina);
+        break;
+      }
+      case 4: {
+        qtdDisciplina = excluirDisciplina(listaDisciplina, qtdDisciplina);
         break;
       }
       default: printf("Opção Inválida. Digite um número entre 0 e 4.");
@@ -68,31 +72,15 @@ int cadastrarDisciplina(Disciplina disciplina[], int qtd){
   printf("Digite o número de vagas a serem ofertadas: \n");
   scanf("%d", &vagas); 
   disciplina[qtd].vagas = vagas;
-  
-  // printf("Digite o número de matrícula do Professor da Disciplina: \n");
-  // scanf("%d", &matriculaProfessor);
-  // disciplina[qtd].nomeProfessor = ;
-  // getchar();
 
-  // if ( validarProfessorDisciplina(matriculaProfessor) == VALIDO ){
-  //   printf("=== Disciplina cadastrada com sucesso! === \n");
-  //   printf("\n========================================== \n");
-  //   disciplina[qtd].codigoDisciplina = getCodigoDisciplina();
-  //   strcpy(disciplina[qtd].nome, nome);
-  //   disciplina[qtd].semestre = semestre;
-  //   disciplina[qtd].nomeProfessor = ;
-  //   qtd++;
-  // } else {
-  //   if (validarProfessorDisciplina(matriculaProfessor) == INVALIDO) printf("Disciplina não cadastrada: Professor não cadastrado! \n");
-  // }
   qtd++;
   return qtd;
 }
 
 void listaDisciplinas(Disciplina lista[], int qtd){
-  printf("\n ============ LISTA DE DISCIPLINAS ============\n");
+  printf("\n *********** LISTA DE DISCIPLINAS ***********\n");
   for (int i = 0; i < qtd; i++){
-    printf("Código da Disciplina: %d\nNome: %s\nProfessor: %s\nSemestre: %d;\nVagas: %d\n", lista[i].codigoDisciplina, lista[i].nome, lista[qtd].nomeProfessor, lista[i].semestre, lista[i].vagas);
+    printf(" Código da Disciplina: %d\n Nome: %s\n Professor: %s\n Semestre: %d;\n Vagas: %d\n", lista[i].codigoDisciplina, lista[i].nome, lista[i].nomeProfessor, lista[i].semestre, lista[i].vagas);
   printf("\n---------------------------------------------\n");
   }  
 }
@@ -103,4 +91,87 @@ int getCodigoDisciplina(){
   return codigoAtualDisciplina;
 }
 
-// gcc Escola.c Aluno.c Utils.c Disciplina.c Professor.c -o apd
+int menuAtualizarDisciplina() {
+  int opcao;
+  printf("\n++++++++++ ATUALIZAR DISCIPLINA ++++++++++ \n");
+  printf("Digite a sua opção:\n  1 - Alterar nome da Disciplina \n  2 - Alterar professor da disciplina\n  3 - Alterar Semestre\n  4 - Alterar número de vagas\n");
+  scanf("%d", &opcao);
+  return opcao;
+}
+
+int atualizarDisciplina (Disciplina disciplina[], int qtd){
+  int numMateria;
+  
+  printf("Digite o código da disciplina que você quer Atualizar: ");
+  scanf("%d", &numMateria);
+  int opcao = 1;
+
+  while (opcao != 0) {
+    opcao = menuAtualizarDisciplina();
+
+    for (int i = 0; i < qtd; i++) {
+      if (disciplina[i].codigoDisciplina == numMateria){
+        switch (opcao) {
+          case 0:{
+            printf("\n ... RETORNANDO AO MENU ANTERIOR ... \n\n");
+            break;
+          } 
+          case 1: {
+            getchar();
+            printf("Digite o novo nome da disciplina: ");
+            fgets(disciplina[i].nome, TAMNOME, stdin);
+            printf("\n ---- Nome atualizado com sucesso! ---- \n");
+            break;
+          }
+          case 2: {
+            getchar();
+            printf("Digite o nome do novo professor da Disciplina : \n");
+            fgets(disciplina[i].nomeProfessor, TAMNOME, stdin);
+            printf("\n --- Nome do Professor atualizado com sucesso! --- \n");
+            break;
+          }
+          case 3: {
+            printf("Digite o novo semestre da Disciplina : \n");
+            scanf("%d", &disciplina[i].semestre);
+            printf("\n --- Semestre da Disciplina atualizado com sucesso! --- \n");
+            break;
+          }
+          case 4: {
+            printf("Digite o novo número de vagas a serem ofertadas: \n");
+            scanf("%d", &disciplina[i].vagas);
+            printf("\n --- Número de vagas da Disciplina atualizado com sucesso! --- \n");
+            break;
+          }
+          default: printf("Opção Inválida. Digite um número entre 0 e 4.");
+        }
+      return 0;
+      }
+    }
+    printf(" \n ------ Código de disciplina não encontrado! ----- \n");
+    opcao = 0;  
+  }
+}
+
+int excluirDisciplina(Disciplina disciplina[], int qtd){
+  int codMateria;
+  
+  printf("\n--------- EXCLUIR DISCIPLINA --------- \n");
+  printf("Digite o código da disciplina que você quer excluir: ");
+  scanf("%d", &codMateria);
+
+  for (int i = 0; i < qtd; i++) {
+    if (disciplina[i].codigoDisciplina == codMateria){
+      for (int j = i ; j < qtd-1; j++){
+        strcpy(disciplina[j].nome, disciplina[j+1].nome);
+        strcpy(disciplina[j].nomeProfessor, disciplina[j+1].nomeProfessor);
+        disciplina[j].semestre = disciplina[j+1].semestre;
+        disciplina[j].vagas = disciplina[j+1].vagas;
+      }
+      printf("\n ------ Disciplina excluída com sucesso! ------ \n ");
+      qtd--;
+      return qtd;
+    }
+  }
+  printf("\n ----- Código de disciplina não encontrado! ----- \n");
+  return qtd;
+}

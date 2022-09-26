@@ -9,11 +9,11 @@ int imprimeMenu();
 
 int imprimeMenu() {
   int opcao;
-  printf("\n ======================================= \n");
+  printf("\n========================================== \n");
   printf("Seja bem vindo ao sistema da Escola Saber.\n");
   printf("Digite a opção desejada:\n");
-  printf(" 1 - Área do Alunos\n 2 - Área do Professor\n 3 - Central das "
-         "disciplina\n 4 - Listar relatórios\n");
+  printf("  1 - Área do Alunos\n  2 - Área do Professor\n  3 - Central das "
+         "disciplina\n  4 - Listar relatórios\n");
   scanf("%d", &opcao);
   return opcao;
 }
