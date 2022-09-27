@@ -16,6 +16,7 @@ typedef struct nasc
 int validarSexo(char sexo);
 int validarNascimento(int dia, int mes, int ano);
 int validarCPF(char cpf[]);
+int validarMes(int mes);
 int validarProfessorDisciplina (int codigoProfessor);
 int bissexto();
 

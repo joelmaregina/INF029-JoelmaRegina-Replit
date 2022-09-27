@@ -121,6 +121,14 @@ int validarCPF(char cpf[])
     return valor;
 }
 
+int validarMes(int mes){
+  int valor = INVALIDO;
+
+  if(mes >= 1 && mes <= 12) valor = VALIDO;
+
+  return valor;
+}
+
 int validarProfessorDisciplina (int codigoProfessor){
   int valor = INVALIDO;
 

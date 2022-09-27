@@ -38,7 +38,11 @@ int mainDisciplina(Disciplina listaDisciplina[], int qtdDisciplina)
         qtdDisciplina = excluirDisciplina(listaDisciplina, qtdDisciplina);
         break;
       }
-      default: printf("Opção Inválida. Digite um número entre 0 e 4.");
+      case 5: {
+        //exibirRelatoriosD(listaDisciplina, qtdDisciplina);
+        break;
+      }
+      default: printf("Opção Inválida. Digite um número entre 0 e 5.");
     }
   } 
   return qtdDisciplina;

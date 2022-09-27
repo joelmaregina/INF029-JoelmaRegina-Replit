@@ -18,10 +18,14 @@ typedef struct aluno{
 
 int mainAluno(Aluno listaAluno[], int qtdAluno);
 int cadastrarAluno(Aluno aluno[], int qtd);
+int getProximaMatriculaA();
 void listaAlunos(Aluno lista[], int qtd);
 int menuAtualizarAluno();
-int atualizaAluno (Aluno lista[], int qtd);
+int atualizarAluno (Aluno aluno[], int qtd);
 int excluirAluno(Aluno lista[], int qtd);
-int getProximaMatriculaA();
-Aluno validarDados();
+int menuGerarRelatoriosA();
+void exibirRelatoriosA(Aluno lista[], int qtd);
+int listarPorSexoA(Aluno lista[] ,int qtd);
+int listarPorNomeA(Aluno lista[], int qtd);
+int listarPorDataDeNascimentoA(Aluno lista[], int qtd);
 

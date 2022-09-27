@@ -22,4 +22,7 @@ void listaProfessores(Professor lista[], int qtd);
 int menuAtualizarProfessor();
 int atualizarProfessor (Professor professor[], int qtd);
 int excluirProfessor(Professor professor[], int qtd);
+int menuGerarRelatoriosP();
+void exibirRelatoriosP(Professor lista[], int qtd);
+int listarPorSexoP(Professor lista[] ,int qtd);
 int getProximaMatriculaP();
