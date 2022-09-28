@@ -22,4 +22,8 @@ void listaDisciplinas(Disciplina lista[], int qtd);
 int menuAtualizarDisciplina();
 int atualizarDisciplina(Disciplina disciplina[], int qtd);
 int excluirDisciplina(Disciplina disciplina[], int qtd);
+int menuGerarRelatoriosD();
+void exibirRelatoriosD(Disciplina lista[], int qtd);
+int listarMaisQue40vagas(Disciplina lista[],int  qtd);
+int listarDetalhesDisciplina(Disciplina lista[],int  qtd);
 int getCodigoDisciplina();

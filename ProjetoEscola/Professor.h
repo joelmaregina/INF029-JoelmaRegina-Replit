@@ -7,6 +7,7 @@
 #define INVALIDO 0
 #define TAMNOME 41
 #define TAMCPF 15
+#define TAM 50
 
 typedef struct professor{
   int matricula;

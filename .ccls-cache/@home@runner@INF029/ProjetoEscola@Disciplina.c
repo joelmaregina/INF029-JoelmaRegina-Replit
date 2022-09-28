@@ -4,7 +4,7 @@
 int menuDisciplina() {
   int opcao;
   printf("\n========== ÁREA DAS DISCIPLINAS ========== \n");
-  printf("Digite a sua opção:\n  1 - Cadastrar Disciplina \n  2 - Listar Disciplinas \n  3 - Atualizar Disciplina\n  4 - Excluir Disciplina \n  0 - Retornar ao menu anterior\n");
+  printf("Digite a sua opção:\n  1 - Cadastrar Disciplina \n  2 - Listar Disciplinas \n  3 - Atualizar Disciplina\n  4 - Excluir Disciplina\n  5 - Listar relatórios de disciplinas \n  0 - Retornar ao menu anterior\n");
   scanf("%d", &opcao);
   return opcao;
 }
@@ -39,7 +39,7 @@ int mainDisciplina(Disciplina listaDisciplina[], int qtdDisciplina)
         break;
       }
       case 5: {
-        //exibirRelatoriosD(listaDisciplina, qtdDisciplina);
+        exibirRelatoriosD(listaDisciplina, qtdDisciplina);
         break;
       }
       default: printf("Opção Inválida. Digite um número entre 0 e 5.");
@@ -178,4 +178,52 @@ int excluirDisciplina(Disciplina disciplina[], int qtd){
   }
   printf("\n ----- Código de disciplina não encontrado! ----- \n");
   return qtd;
+}
+
+int menuGerarRelatoriosD(){
+   int opcao;
+  printf("\n\n |||||||||||| GERAR RELATÓRIOS |||||||||||| \n\n");
+  printf("Digite a sua opção:\n  1 - Listar disciplinas com mais de 40 vagas \n  2 - Listar detalhes de uma disciplina\n  0 - Retornar ao menu anterior\n");
+  scanf("%d", &opcao);
+  return opcao; 
+}
+
+void exibirRelatoriosD(Disciplina lista[], int qtd) {
+  int opcao = 1;
+
+  while (opcao != 0) {
+    opcao = menuGerarRelatoriosD();
+
+    switch (opcao) {
+      case 0:{
+        printf("\n ... RETORNANDO AO MENU ANTERIOR ... \n\n");
+        break;
+      } 
+      case 1: {
+        listarMaisQue40vagas(lista, qtd);
+        break;
+      }
+      case 2: {
+        listarDetalhesDisciplina(lista, qtd);
+        break;
+      }
+      default: printf("Opção Inválida. Digite um número entre 0 e .");
+    }
+  }
+}
+
+int listarMaisQue40vagas(Disciplina lista[],int  qtd){
+  int maximo = 40;
+  printf("\n ||||| Disciplinas com mais de 40 vagas: |||||");
+  
+  for(int i = 0; i < qtd; i++){
+    if (lista[i].vagas > maximo){
+      printf("\n ________________________________________ \n\n Nome da Disciplina: %s\n Nome do Professor: %s \n Número de vagas: %d", lista[i].nome, lista[i].nomeProfessor, lista[i].vagas);
+    }
+  }
+  
+}
+
+int listarDetalhesDisciplina(Disciplina lista[],int  qtd){
+  
 }

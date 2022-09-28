@@ -281,5 +281,52 @@ int listarPorNomeA(Aluno lista[], int qtd){
 }
 
 int listarPorDataDeNascimentoA(Aluno lista[], int qtd){
-  
+  Aluno alunosOrdAniver[TAM];
+  Aluno alunoAux;
+  int i, j, sumAniver1, sumAniver2;
+
+  for(i = 0; i < qtd; i++){
+    alunosOrdAniver[i].matricula = lista[i].matricula;
+    strcpy(alunosOrdAniver[i].nome, lista[i].nome);
+    alunosOrdAniver[i].nascimento.dia = lista[i].nascimento.dia;
+    alunosOrdAniver[i].nascimento.mes = lista[i].nascimento.mes;
+    alunosOrdAniver[i].nascimento.ano = lista[i].nascimento.ano;
+    strcpy(alunosOrdAniver[i].cpf, lista[i].cpf);
+    alunosOrdAniver[i].sexo = lista[i].sexo;
+  }
+    // *************************** INCOMPLETO!!! **********************************
+  // for(i = 0, j = 1; i < qtd - 1; i++, j++){
+  //   if(alunosOrdAniver[i].nascimento.ano > alunosOrdAniver[j].nascimento.ano){
+  //     alunoAux.matricula = alunosOrdAniver[i].matricula;
+  //     alunosOrdAniver[i].matricula = alunosOrdAniver[j].matricula;
+  //     alunosOrdAniver[j].matricula = alunoAux.matricula;
+  //     strcpy(alunoAux.nome, alunosOrdAniver[i].nome);
+  //     strcpy(alunosOrdAniver[i].nome, alunosOrdAniver[j].nome);
+  //     strcpy(alunosOrdAniver[j].nome, alunoAux.nome);
+  //     alunoAux.nascimento.dia = alunosOrdAniver[i].nascimento.dia;
+  //     alunosOrdAniver[i].nascimento.dia = alunosOrdAniver[j].nascimento.dia;
+  //     alunosOrdAniver[j].nascimento.dia = alunoAux.nascimento.dia; 
+  //     alunoAux.nascimento.mes = alunosOrdAniver[i].nascimento.mes;
+  //     alunosOrdAniver[i].nascimento.mes = alunosOrdAniver[j].nascimento.mes;
+  //     alunosOrdAniver[j].nascimento.mes = alunoAux.nascimento.mes; 
+  //     alunoAux.nascimento.ano = alunosOrdAniver[i].nascimento.ano;
+  //     alunosOrdAniver[i].nascimento.ano = alunosOrdAniver[j].nascimento.ano;
+  //     alunosOrdAniver[j].nascimento.ano = alunoAux.nascimento.ano;
+  //     strcpy(alunoAux.cpf, alunosOrdAniver[i].cpf);
+  //     strcpy(alunosOrdAniver[i].cpf, alunosOrdAniver[j].cpf);
+  //     strcpy(alunosOrdAniver[j].cpf, alunoAux.cpf);
+  //     alunoAux.sexo = alunosOrdAniver[i].sexo;
+  //     alunosOrdAniver[i].sexo = alunosOrdAniver[j].sexo;
+  //     alunosOrdAniver[j].sexo = alunoAux.sexo;
+  //   }
+  // }
+  printf("\n ||| Alunos Ordenados pelo nascimento: ||| \n");
+
+  for(i = 0; i < qtd; i++) {
+    printf("Nome: %s \nMatricula: %d\nData de Nascimento: %d/%d/%d;\nCPF: %s \nSEXO: %c\n",
+       alunosOrdAniver[i].nome, alunosOrdAniver[i].matricula, alunosOrdAniver[i].nascimento.dia,
+       alunosOrdAniver[i].nascimento.mes, alunosOrdAniver[i].nascimento.ano, alunosOrdAniver[i].cpf,
+       alunosOrdAniver[i].sexo);
+      printf("\n------------------------------------\n");
+  }
 }

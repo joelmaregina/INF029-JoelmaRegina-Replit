@@ -7,6 +7,7 @@
 #define INVALIDO 0
 #define TAMNOME 41
 #define TAMCPF 15
+#define TAM 50
 
 typedef struct aluno{
   int matricula;
@@ -26,6 +27,6 @@ int excluirAluno(Aluno lista[], int qtd);
 int menuGerarRelatoriosA();
 void exibirRelatoriosA(Aluno lista[], int qtd);
 int listarPorSexoA(Aluno lista[] ,int qtd);
-int listarPorNomeA(Aluno lista[], int qtd);
-int listarPorDataDeNascimentoA(Aluno lista[], int qtd);
+int listarPorNomeA(Aluno lista[], int qtd); // Não feito
+int listarPorDataDeNascimentoA(Aluno lista[], int qtd); // Não feito
 
