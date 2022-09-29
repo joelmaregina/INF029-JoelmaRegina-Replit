@@ -1,6 +1,9 @@
+#ifndef PROFESSOR_H  // header guard
+#define PROFESSOR_H
+
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <string.h>gcc Escola.c Aluno.c Utils.c Professor.c Disciplina.c -o escola
 #include "Utils.h"
 
 #define VALIDO 1
@@ -27,3 +30,5 @@ int menuGerarRelatoriosP();
 void exibirRelatoriosP(Professor lista[], int qtd);
 int listarPorSexoP(Professor lista[] ,int qtd);
 int getProximaMatriculaP();
+
+#endif

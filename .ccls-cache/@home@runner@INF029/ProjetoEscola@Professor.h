@@ -1,12 +1,16 @@
+#ifndef PROFESSOR_H  // header guard
+#define PROFESSOR_H
+
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <string.h>gcc Escola.c Aluno.c Utils.c Professor.c Disciplina.c -o escola
 #include "Utils.h"
 
 #define VALIDO 1
 #define INVALIDO 0
 #define TAMNOME 41
 #define TAMCPF 15
+#define TAM 50
 
 typedef struct professor{
   int matricula;
@@ -26,3 +30,5 @@ int menuGerarRelatoriosP();
 void exibirRelatoriosP(Professor lista[], int qtd);
 int listarPorSexoP(Professor lista[] ,int qtd);
 int getProximaMatriculaP();
+
+#endif

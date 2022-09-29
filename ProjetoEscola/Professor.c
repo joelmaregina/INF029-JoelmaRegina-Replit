@@ -184,13 +184,7 @@ int excluirProfessor(Professor professor[], int qtd){
   for (int i = 0; i < qtd; i++) {
     if (professor[i].matricula == numMatricula){
       for (int j = i ; j < qtd-1; j++){
-        professor[j].matricula = professor[j+1].matricula;
-        strcpy(professor[j].nome, professor[j+1].nome);
-        professor[j].nascimento.dia = professor[j+1].nascimento.dia;
-        professor[j].nascimento.mes = professor[j+1].nascimento.mes;
-        professor[j].nascimento.ano = professor[j+1].nascimento.ano;
-        strcpy(professor[j].cpf, professor[j+1].cpf);
-        professor[j].sexo = professor[j+1].sexo;
+        professor[j] = professor[j+1];
       }
       printf("\n ------ Professor excluído com sucesso! ------ \n ");
       qtd--;

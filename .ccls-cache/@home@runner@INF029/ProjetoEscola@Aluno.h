@@ -1,3 +1,6 @@
+#ifndef ALUNO_H  // header guard
+#define ALUNO_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -7,6 +10,8 @@
 #define INVALIDO 0
 #define TAMNOME 41
 #define TAMCPF 15
+#define TAMMATERIAS 12
+#define TAM 50
 
 typedef struct aluno{
   int matricula;
@@ -14,6 +19,7 @@ typedef struct aluno{
   char sexo;
   Data nascimento;
   char cpf[TAMCPF];
+  char disciplinas[TAMNOME][TAMMATERIAS];
 } Aluno;
 
 int mainAluno(Aluno listaAluno[], int qtdAluno);
@@ -27,5 +33,7 @@ int menuGerarRelatoriosA();
 void exibirRelatoriosA(Aluno lista[], int qtd);
 int listarPorSexoA(Aluno lista[] ,int qtd);
 int listarPorNomeA(Aluno lista[], int qtd);
-int listarPorDataDeNascimentoA(Aluno lista[], int qtd);
+int listarPorDataDeNascimentoA(Aluno lista[], int qtd); // Não feito
+
+#endif
 

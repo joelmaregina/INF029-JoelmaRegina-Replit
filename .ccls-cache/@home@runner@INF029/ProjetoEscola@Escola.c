@@ -33,7 +33,7 @@ int main(void) {
         break;
       }
       case 3: {
-        qtdDisciplina = mainDisciplina(listaDisciplina, qtdDisciplina);
+        qtdDisciplina = mainDisciplina(listaDisciplina, qtdDisciplina, listaProfessor, qtdProfessor, listaAluno, qtdAluno);
         break;
       }
       case 4: {
@@ -49,7 +49,7 @@ int main(void) {
 int menuRelatoriosPrincipal(){
   int opcao;
   printf("\n\n |||||||||||| GERAR RELATÓRIOS |||||||||||| \n\n");
-  printf("Digite a sua opção:\n  1 - Listar aniversariantes de um mês\n  2 - Buscar professores e alunos \n  3 - Listar alunos ordenados por data de nascimento\n  0 - Retornar ao menu anterior\n");
+  printf("Digite a sua opção:\n  1 - Listar aniversariantes de um mês\n  2 - Buscar professores e alunos\n  0 - Retornar ao menu anterior\n");
   scanf("%d", &opcao);
   return opcao;
 }
@@ -127,47 +127,52 @@ int buscarPessoas(Aluno listaA[], int qtdA, Professor listaP[], int qtdP){
   printf("Digite o nome (ou fragmento) a ser buscado (Mínimo 3 caracteres): ");
   fgets(string, TAMNOME, stdin);
   
-  for(int i = 0; i < 10; i++){
-    if(string[i] == '\n') string[i] = '\0';
-  }
-  
+  for(int i = 0; i < 10; i++) if(string[i] == '\n') string[i] = '\0';
+
   tamanhoString = strlen(string);
   if (tamanhoString < 3){
     printf("\n A string digitada é inválida. Digite pelo menos 3 caracteres para realizar a busca. \n");
     return 0;
   }
 
+  printf("\n ***** ALUNOS ENCONTRADOS ***** \n");
   for(i = 0, j = 0; i < qtdA; i++){
     int tamNome = strlen(listaA[i].nome) - 1;
-    printf("\n Tamanho do nome : %d \n", tamNome);
-    //for(k = 0; k < )
-    if(string[j] == listaA[i].nome[k]){
-      tamanho++;
-      j++;
-    }
-    if (tamanho == tamanhoString){
-      printf("\n ***** ALUNOS ENCONTRADOS ***** \n");
-      printf("Nome: %s \nMatricula: %d\nData de Nascimento: %d/%d/%d;\nCPF: %s "
-       "\nSEXO: %c\n",
-       listaA[i].nome, listaA[i].matricula, listaA[i].nascimento.dia,
-       listaA[i].nascimento.mes, listaA[i].nascimento.ano, listaA[i].cpf,
-       listaA[i].sexo);
-      printf("\n------------------------------------\n");
-      tamanho = 0;
+    for(k = 0; k < tamNome; k++){
+      if(string[j] == listaA[i].nome[k]){
+        tamanho++;
+        j++;
+      }
+      if (tamanho == tamanhoString){
+        printf("Nome: %s \nMatricula: %d\nData de Nascimento: %d/%d/%d;\nCPF: %s "
+         "\nSEXO: %c\n",
+         listaA[i].nome, listaA[i].matricula, listaA[i].nascimento.dia,
+         listaA[i].nascimento.mes, listaA[i].nascimento.ano, listaA[i].cpf,
+         listaA[i].sexo);
+        printf("\n------------------------------------\n");
+        tamanho = 0;
+      }
     }
   }
-  if (tamanho != tamanhoString) printf("\n --- Nenhum aluno foi encontrado! --- \n");
   tamanho = 0;
-  // for(int i = 0; i < qtdP; i++){
-  //   if (listaP[i].nascimento.mes == mes){
-  //     printf("\n ***** PROFESSORES ENCONTRADOS ***** \n");
-  //     printf("Nome: %s \nMatricula: %d\nData de Nascimento: %d/%d/%d;\nCPF: %s "
-  //      "\nSEXO: %c\n",
-  //      listaP[i].nome, listaP[i].matricula, listaP[i].nascimento.dia,
-  //      listaP[i].nascimento.mes, listaP[i].nascimento.ano, listaP[i].cpf,
-  //      listaP[i].sexo);
-  //     printf("\n------------------------------------\n");
-  //   }
-  // }
+  printf("\n ***** PROFESSORES ENCONTRADOS ***** \n");
+  for(i = 0, j = 0; i < qtdP; i++){
+    int tamNome = strlen(listaP[i].nome) - 1;
+    for(k = 0; k < tamNome; k++){
+      if(string[j] == listaP[i].nome[k]){
+        tamanho++;
+        j++;
+      }
+      if (tamanho == tamanhoString){
+        printf("Nome: %s \nMatricula: %d\nData de Nascimento: %d/%d/%d;\nCPF: %s "
+         "\nSEXO: %c\n",
+         listaP[i].nome, listaP[i].matricula, listaP[i].nascimento.dia,
+         listaP[i].nascimento.mes, listaP[i].nascimento.ano, listaP[i].cpf,
+         listaP[i].sexo);
+        printf("\n------------------------------------\n");
+        tamanho = 0;
+      }
+    }
+  }
 
 }

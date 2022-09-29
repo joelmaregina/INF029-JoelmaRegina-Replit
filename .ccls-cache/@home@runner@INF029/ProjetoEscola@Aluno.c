@@ -191,13 +191,7 @@ int excluirAluno(Aluno lista[], int qtd){
   for (int i = 0; i < qtd; i++) {
     if (lista[i].matricula == numMatricula){
       for (int j = i ; j < qtd-1; j++){
-        lista[j].matricula = lista[j+1].matricula;
-        strcpy(lista[j].nome, lista[j+1].nome);
-        lista[j].nascimento.dia = lista[j+1].nascimento.dia;
-        lista[j].nascimento.mes = lista[j+1].nascimento.mes;
-        lista[j].nascimento.ano = lista[j+1].nascimento.ano;
-        strcpy(lista[j].cpf, lista[j+1].cpf);
-        lista[j].sexo = lista[j+1].sexo;
+        lista[j] = lista[j+1];
       }
       printf("\n ------ Aluno excluído com sucesso! ------ \n");
       qtd--;
@@ -281,5 +275,46 @@ int listarPorNomeA(Aluno lista[], int qtd){
 }
 
 int listarPorDataDeNascimentoA(Aluno lista[], int qtd){
+  Aluno alunosOrdAniver[TAM];
+  Aluno alunoAux;
+  int i, j, sumAniver1, sumAniver2;
+  char anoSoma[8], mes[2], dia[2], anoSoma2[8], mes2[2], dia2[2];
+
+  for(i = 0; i < qtd; i++){
+    alunosOrdAniver[i] = lista[i];
+  }
   
+  for(i = 0, j = 1; i < qtd - 1; i++, j++){
+    int multiplicadorMes = 100;
+    if(alunosOrdAniver[i].nascimento.mes > 10) multiplicadorMes = 1000;
+    sumAniver1 = (alunosOrdAniver[i].nascimento.ano * 10000) + (alunosOrdAniver[i].nascimento.mes * multiplicadorMes) + alunosOrdAniver[i].nascimento.dia;
+    sumAniver2 = (alunosOrdAniver[j].nascimento.ano * 10000) + (alunosOrdAniver[j].nascimento.mes * multiplicadorMes) + alunosOrdAniver[j].nascimento.dia;
+    // sprintf(anoSoma, "%d", alunosOrdAniver[i].nascimento.ano);
+    // sprintf(mes, "%d", alunosOrdAniver[i].nascimento.mes);
+    // sprintf(dia, "%d", alunosOrdAniver[i].nascimento.dia);
+    // strncat(anoSoma, mes, 2);
+    // strcat(anoSoma, dia);
+    // sumAniver1 = atoi(anoSoma);
+    
+    // sprintf(anoSoma2, "%d", alunosOrdAniver[j].nascimento.ano);
+    // sprintf(mes2, "%d", alunosOrdAniver[j].nascimento.mes);
+    // sprintf(dia2, "%d", alunosOrdAniver[j].nascimento.dia);
+    // strncat(anoSoma2, mes2, 2);
+    // strcat(anoSoma2, dia2);
+    // sumAniver2 = atoi(anoSoma2);
+    if(sumAniver1 > sumAniver2){
+      alunoAux = alunosOrdAniver[i];
+      alunosOrdAniver[i] = alunosOrdAniver[j];
+      alunosOrdAniver[j] = alunoAux;
+    }
+  }
+  printf("\n ||| Alunos Ordenados pelo nascimento: ||| \n");
+
+  for(i = 0; i < qtd; i++) {
+    printf("Nome: %s \nMatricula: %d\nData de Nascimento: %d/%d/%d;\nCPF: %s \nSEXO: %c\n",
+       alunosOrdAniver[i].nome, alunosOrdAniver[i].matricula, alunosOrdAniver[i].nascimento.dia,
+       alunosOrdAniver[i].nascimento.mes, alunosOrdAniver[i].nascimento.ano, alunosOrdAniver[i].cpf,
+       alunosOrdAniver[i].sexo);
+      printf("\n------------------------------------\n");
+  }
 }

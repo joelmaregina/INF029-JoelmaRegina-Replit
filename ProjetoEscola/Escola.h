@@ -1,3 +1,6 @@
+#ifndef ESCOLA_H  // header guard
+#define ESCOLA_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -12,3 +15,5 @@ int menuRelatoriosPrincipal();
 void exibirRelatoriosPrincipal(Aluno listaA[], int qtdA, Professor listaP[], int qtdP, Disciplina listaD[], int qtdD);
 int listarAniversariantes(Aluno listaA[], int qtdA, Professor listaP[], int qtdP);
 int buscarPessoas(Aluno listaA[], int qtdA, Professor listaP[], int qtdP);
+
+#endif

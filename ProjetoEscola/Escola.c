@@ -33,7 +33,7 @@ int main(void) {
         break;
       }
       case 3: {
-        qtdDisciplina = mainDisciplina(listaDisciplina, qtdDisciplina);
+        qtdDisciplina = mainDisciplina(listaDisciplina, qtdDisciplina, listaProfessor, qtdProfessor, listaAluno, qtdAluno);
         break;
       }
       case 4: {

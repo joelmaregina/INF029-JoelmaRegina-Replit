@@ -128,11 +128,3 @@ int validarMes(int mes){
 
   return valor;
 }
-
-int validarProfessorDisciplina (int codigoProfessor){
-  int valor = INVALIDO;
-
-  
-  
-  return valor;
-}
