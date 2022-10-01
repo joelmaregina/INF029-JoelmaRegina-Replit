@@ -5,7 +5,7 @@ int imprimeMenu() {
   printf("\n========================================== \n");
   printf("Seja bem vindo ao sistema da Escola Saber.\n");
   printf("Digite a opção desejada:\n");
-  printf("  1 - Área do Alunos\n  2 - Área do Professor\n  3 - Central das disciplinas\n  4 - Listar relatórios \n");
+  printf("  1 - Área do Alunos\n  2 - Área do Professor\n  3 - Central das disciplinas\n  4 - Inscrever aluno em disciplina\n  5 - Listar relatórios \n ");
   scanf("%d", &opcao);
   return opcao;
 }
@@ -37,9 +37,14 @@ int main(void) {
         break;
       }
       case 4: {
+        inscreverAlunoDisciplina(listaAluno, qtdAluno, listaDisciplina, qtdDisciplina);
+        break;
+      }
+      case 5: {
         exibirRelatoriosPrincipal(listaAluno, qtdAluno, listaProfessor, qtdProfessor, listaDisciplina, qtdDisciplina);
       }
-      default: printf("Opção Inválida. Digite um número entre 0 e 4.");
+      break;
+      default: printf("Opção Inválida. Digite um número entre 0 e 5.");
     }
   }
 
@@ -49,7 +54,7 @@ int main(void) {
 int menuRelatoriosPrincipal(){
   int opcao;
   printf("\n\n |||||||||||| GERAR RELATÓRIOS |||||||||||| \n\n");
-  printf("Digite a sua opção:\n  1 - Listar aniversariantes de um mês\n  2 - Buscar professores e alunos\n  0 - Retornar ao menu anterior\n");
+  printf("Digite a sua opção:\n  1 - Listar aniversariantes de um mês\n  2 - Buscar professores e alunos\n  3 - Inscrever aluno em Disciplinas  \n  0 - Retornar ao menu anterior\n");
   scanf("%d", &opcao);
   return opcao;
 }
@@ -74,7 +79,7 @@ void exibirRelatoriosPrincipal(Aluno listaA[], int qtdA, Professor listaP[], int
         break;
       }
       case 3: {
-        //listarPorDataDeNascimentoA(lista, qtd);
+        inscreverAlunoDisciplina(listaA, qtdA, listaD, qtdD);
         break;
       }
       default: printf("\n Opção Inválida. Digite um número entre 0 e . \n");
@@ -174,5 +179,60 @@ int buscarPessoas(Aluno listaA[], int qtdA, Professor listaP[], int qtdP){
       }
     }
   }
+}
 
+int inscreverAlunoDisciplina(Aluno listaA[], int qtdA, Disciplina listaD[], int qtdD){
+  int matriculaAluno;
+  int codigoDisciplina;
+  int indexA;
+  int indexD;
+  
+  printf("\n Digite a matricula do Aluno: \n");
+  scanf("%d", &matriculaAluno);
+  indexA = validarMatriculaAluno(listaA, qtdA, matriculaAluno);
+  if(indexA != -1){
+    printf("\n Aluno encontrado! \n\n");
+  } else {
+    printf("\n Aluno não encontrado!\n");
+    return 0;
+  } 
+  
+  printf("\n Digite o código da disciplina: \n");
+  scanf("%d", &codigoDisciplina);
+  indexD = validarDisciplina(listaD, qtdD, codigoDisciplina);
+  if(indexD != -1){
+    for(int i = 0; i <= listaA[indexA].numDisciplinas; i++){
+      if(listaA[indexA].disciplinas[i] == codigoDisciplina){
+        printf("\n O aluno já está matriculado nesta matéria! \n");
+        return 0;
+      }
+    }
+    printf("\n Disciplina encontrada! \n Aluno inscrito com sucesso! \n\n");
+    listaD[indexD].alunos[listaD[indexD].numAlunos] = listaA[indexA].matricula;
+    listaA[indexA].disciplinas[listaA[indexA].numDisciplinas] = listaD[indexD].codigoDisciplina;
+    listaD[indexD].numAlunos++;
+    listaA[indexA].numDisciplinas++;
+  } else {
+    printf("\n Disciplina não encontrada!\n");
+    return 0;
+  } 
+  
+}
+
+int validarMatriculaAluno(Aluno listaAluno[], int qtdAluno, int matriculaAluno){
+  for(int i = 0; i < qtdAluno; i++){
+    if(matriculaAluno == listaAluno[i].matricula){
+      return i;
+    }
+  }
+  return -1;
+}
+
+int validarDisciplina(Disciplina listaDisciplina[], int qtdDisciplina, int codigoDisciplina){
+  for(int i = 0; i < qtdDisciplina; i++){
+    if(codigoDisciplina == listaDisciplina[i].codigoDisciplina){
+      return i;
+    }
+  }
+  return -1;
 }

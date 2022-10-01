@@ -164,7 +164,8 @@ int atualizarProfessor (Professor professor[], int qtd){
             }
             break;
           }
-          default: printf("Opção Inválida. Digite um número entre 0 e 3.");
+          default: 
+            printf("Opção Inválida. Digite um número entre 0 e 3.");
         }
       return 0;
       }
@@ -223,7 +224,7 @@ void exibirRelatoriosP(Professor lista[], int qtd){
         break;
       }
       case 3: {
-        //listarPorDataDeNascimentoP(lista, qtd);
+        listarPorDataDeNascimentoP(lista, qtd);
         break;
       }
       default: printf("Opção Inválida. Digite um número entre 0 e 3.");
@@ -261,4 +262,43 @@ int listarPorSexoP(Professor lista[], int qtd){
     }
   }
   return 0;
+}
+
+// void listarPorNomeP(Professor lista[], int qtd){
+  
+// }
+
+void listarPorDataDeNascimentoP(Professor lista[], int qtd){
+  Professor profsOrdNasc[TAM];
+  Professor profAux;
+  int i, j;
+  long int sumAniver1, sumAniver2;
+
+  for(i = 0; i < qtd; i++){
+    profsOrdNasc[i] = lista[i];
+  }
+  
+  for(i = 0, j = 1; i < qtd - 1; i++, j++){
+    int multiplicadorMes1 = 100;
+    if(profsOrdNasc[i].nascimento.mes > 10) multiplicadorMes1 = 1000;
+    int multiplicadorMes2 = 100;
+    if(profsOrdNasc[j].nascimento.mes > 10) multiplicadorMes2 = 1000;
+    sumAniver1 = (profsOrdNasc[i].nascimento.ano * 10000) + (profsOrdNasc[i].nascimento.mes * multiplicadorMes1) + profsOrdNasc[i].nascimento.dia;
+    sumAniver2 = (profsOrdNasc[j].nascimento.ano * 10000) + (profsOrdNasc[j].nascimento.mes * multiplicadorMes2) + profsOrdNasc[j].nascimento.dia;
+    if(sumAniver1 > sumAniver2){
+      profAux= profsOrdNasc[i];
+      profsOrdNasc[i] = profsOrdNasc[j];
+      profsOrdNasc[j] = profAux
+    ;
+    }
+  }
+  printf("\n ||| Alunos Ordenados pelo nascimento: ||| \n");
+
+  for(i = 0; i < qtd; i++) {
+    printf("Nome: %s \nMatricula: %d\nData de Nascimento: %d/%d/%d;\nCPF: %s \nSEXO: %c\n",
+       profsOrdNasc[i].nome, profsOrdNasc[i].matricula, profsOrdNasc[i].nascimento.dia,
+       profsOrdNasc[i].nascimento.mes, profsOrdNasc[i].nascimento.ano, profsOrdNasc[i].cpf,
+       profsOrdNasc[i].sexo);
+      printf("\n------------------------------------\n");
+  }
 }

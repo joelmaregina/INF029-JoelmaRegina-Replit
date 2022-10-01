@@ -79,6 +79,7 @@ int cadastrarAluno(Aluno aluno[], int qtd) {
     aluno[qtd].nascimento.dia = dia;
     aluno[qtd].nascimento.mes = mes;
     aluno[qtd].nascimento.ano = ano;
+    //aluno[qtd].dataInt = calculaDataInt(aluno[qtd].nascimento.dia, aluno[qtd].nascimento.mes, aluno[qtd].nascimento.ano);
     strcpy(aluno[qtd].cpf, cpf);
     aluno[qtd].sexo = sexo;
     qtd++;
@@ -90,6 +91,8 @@ int cadastrarAluno(Aluno aluno[], int qtd) {
     if (validarSexo(sexo) == INVALIDO)
       printf("Aluno não cadastrado: Sexo inválido! \n");
   }
+
+    aluno[qtd].numDisciplinas = 0;
 
   return qtd;
 }
@@ -170,15 +173,16 @@ int atualizarAluno (Aluno aluno[], int qtd){
               printf("\n ---- Sexo inválido! --- \n");
             }
             break;
-          }
           default: printf("Opção Inválida. Digite um número entre 0 e 3.");
+          }
         }
       return 0;
       }
     }
     printf(" \n ------ Número de matricula não encontrado! ----- \n");
-    opcao = 0;  
+    opcao = 0;
   }
+  return 0;
 }
 
 int excluirAluno(Aluno lista[], int qtd){
@@ -205,7 +209,7 @@ int excluirAluno(Aluno lista[], int qtd){
 int menuGerarRelatoriosA(){
   int opcao;
   printf("\n\n |||||||||||| GERAR RELATÓRIOS |||||||||||| \n\n");
-  printf("Digite a sua opção:\n  1 - Listar alunos por Sexo \n  2 - Listar alunos ordenados por nome crescente \n  3 - Listar alunos ordenados por data de nascimento\n  0 - Retornar ao menu anterior\n");
+  printf("Digite a sua opção:\n  1 - Listar alunos por Sexo \n  2 - Listar inscritos em pelo menos 3 disciplinas\n  3 - Listar alunos ordenados por nome crescente \n  4 - Listar alunos ordenados por data de nascimento\n  0 - Retornar ao menu anterior\n");
   scanf("%d", &opcao);
   return opcao;
 }
@@ -225,15 +229,19 @@ void exibirRelatoriosA(Aluno lista[], int qtd){
         listarPorSexoA(lista, qtd);
         break;
       }
-      case 2: {
-        listarPorNomeA(lista, qtd);
+      case 2:{
+        listarInscritosMais3Disc(lista, qtd);
         break;
       }
       case 3: {
+        listarPorNomeA(lista, qtd);
+        break;
+      }
+      case 4: {
         listarPorDataDeNascimentoA(lista, qtd);
         break;
       }
-      default: printf("Opção Inválida. Digite um número entre 0 e 3.");
+      default: printf("Opção Inválida. Digite um número entre 0 e 4.");
     }
   }
 }
@@ -270,39 +278,43 @@ int listarPorSexoA(Aluno lista[], int qtd){
   return 0;
 }
 
-int listarPorNomeA(Aluno lista[], int qtd){
+void listarInscritosMais3Disc(Aluno lista[], int qtd){
+  for(int i = 0; i < qtd; i++){
+    if (lista[i].numDisciplinas >= 3 ){
+      printf("Nome: %s \nMatricula: %d\nData de Nascimento: %d/%d/%d;\nCPF: %s "
+       "\nSEXO: %c\nNº de disciplinas: %d",
+       lista[i].nome, lista[i].matricula, lista[i].nascimento.dia,
+       lista[i].nascimento.mes, lista[i].nascimento.ano, lista[i].cpf,
+       lista[i].sexo, lista[i].numDisciplinas);
+      printf("\n------------------------------------\n");
+    }
+  }
+}
+
+void listarPorNomeA(Aluno lista[], int qtd){
   
 }
 
-int listarPorDataDeNascimentoA(Aluno lista[], int qtd){
+void listarPorDataDeNascimentoA(Aluno lista[], int qtd){
   Aluno alunosOrdAniver[TAM];
   Aluno alunoAux;
-  int i, j, sumAniver1, sumAniver2;
-  char anoSoma[8], mes[2], dia[2], anoSoma2[8], mes2[2], dia2[2];
+  int i, j;
+  long int sumAniver1, sumAniver2;
 
   for(i = 0; i < qtd; i++){
-    alunosOrdAniver[i] = lista[i];
+    alunosOrdAniver[i] = lista[i];    
   }
   
   for(i = 0, j = 1; i < qtd - 1; i++, j++){
-    int multiplicadorMes = 100;
-    if(alunosOrdAniver[i].nascimento.mes > 10) multiplicadorMes = 1000;
-    sumAniver1 = (alunosOrdAniver[i].nascimento.ano * 10000) + (alunosOrdAniver[i].nascimento.mes * multiplicadorMes) + alunosOrdAniver[i].nascimento.dia;
-    sumAniver2 = (alunosOrdAniver[j].nascimento.ano * 10000) + (alunosOrdAniver[j].nascimento.mes * multiplicadorMes) + alunosOrdAniver[j].nascimento.dia;
-    // sprintf(anoSoma, "%d", alunosOrdAniver[i].nascimento.ano);
-    // sprintf(mes, "%d", alunosOrdAniver[i].nascimento.mes);
-    // sprintf(dia, "%d", alunosOrdAniver[i].nascimento.dia);
-    // strncat(anoSoma, mes, 2);
-    // strcat(anoSoma, dia);
-    // sumAniver1 = atoi(anoSoma);
+    int multiplicadorMes1 = 100;
+    if(alunosOrdAniver[i].nascimento.mes > 10) multiplicadorMes1 = 1000;
+    int multiplicadorMes2 = 100;
+    if(alunosOrdAniver[j].nascimento.mes > 10) multiplicadorMes2 = 1000;
+    sumAniver1 = (alunosOrdAniver[i].nascimento.ano * 10000) + (alunosOrdAniver[i].nascimento.mes * multiplicadorMes1) + alunosOrdAniver[i].nascimento.dia;
+    sumAniver2 = (alunosOrdAniver[j].nascimento.ano * 10000) + (alunosOrdAniver[j].nascimento.mes * multiplicadorMes2) + alunosOrdAniver[j].nascimento.dia;
+
     
-    // sprintf(anoSoma2, "%d", alunosOrdAniver[j].nascimento.ano);
-    // sprintf(mes2, "%d", alunosOrdAniver[j].nascimento.mes);
-    // sprintf(dia2, "%d", alunosOrdAniver[j].nascimento.dia);
-    // strncat(anoSoma2, mes2, 2);
-    // strcat(anoSoma2, dia2);
-    // sumAniver2 = atoi(anoSoma2);
-    if(sumAniver1 > sumAniver2){
+    if(sumAniver1 < sumAniver2){
       alunoAux = alunosOrdAniver[i];
       alunosOrdAniver[i] = alunosOrdAniver[j];
       alunosOrdAniver[j] = alunoAux;
@@ -318,3 +330,62 @@ int listarPorDataDeNascimentoA(Aluno lista[], int qtd){
       printf("\n------------------------------------\n");
   }
 }
+
+// void listarPorDataDeNascimentoA(Aluno lista[], int qtd){
+//   Aluno alunosOrdAniver[TAM];
+//   Aluno alunoAux;
+//   int i, j;
+//   unsigned long int sumAniver1, sumAniver2;
+
+//   for(i = 0; i < qtd; i++){
+//     alunosOrdAniver[i] = lista[i];
+//   }
+  
+//   for(i = 0, j = 1; i < qtd - 1; i++, j++){
+//     int multiplicadorMes1 = 1000;
+//     int multiplicadorDia1 = 1;
+//     int multiplicadorMes2 = 1000;
+//     int multiplicadorDia2 = 1;
+//     int ano1 = alunosOrdAniver[i].nascimento.ano;
+//     int mes1 = alunosOrdAniver[i].nascimento.mes;
+//     int dia1 = alunosOrdAniver[i].nascimento.dia;
+//     int ano2 = alunosOrdAniver[j].nascimento.ano;
+//     int mes2 = alunosOrdAniver[j].nascimento.mes;
+//     int dia2 = alunosOrdAniver[j].nascimento.dia;
+
+//     if(mes1 < 10){
+//       mes1 = mes1 - 10;
+//       multiplicadorMes1 = 100000;
+//     } 
+//     if(dia1 < 10){
+//       dia1 = dia1 - 10;
+//       multiplicadorDia1 = 100;
+//     } 
+//     if(mes2 < 10){
+//       mes2 = mes2 - 10;
+//       multiplicadorMes2 = 100000;
+//     } 
+//     if(dia2 < 10){
+//       dia2 = dia2 - 10;
+//       multiplicadorDia2 = 100;
+//     }
+    
+//     sumAniver1 = (ano1 * 1000000) + (mes1 * multiplicadorMes1) + (dia1 * multiplicadorDia1);
+//     sumAniver2 = (ano2 * 1000000) + (mes2 * multiplicadorMes2) + (dia2 * multiplicadorDia2);
+    
+//     if(sumAniver1 < sumAniver2){
+//       alunoAux = alunosOrdAniver[i];
+//       alunosOrdAniver[i] = alunosOrdAniver[j];
+//       alunosOrdAniver[j] = alunoAux;
+//     }
+//   }
+//   printf("\n ||| Alunos Ordenados pelo nascimento: ||| \n");
+
+//   for(i = 0; i < qtd; i++) {
+//     printf("Nome: %s \nMatricula: %d\nData de Nascimento: %d/%d/%d;\nCPF: %s \nSEXO: %c\n",
+//        alunosOrdAniver[i].nome, alunosOrdAniver[i].matricula, alunosOrdAniver[i].nascimento.dia,
+//        alunosOrdAniver[i].nascimento.mes, alunosOrdAniver[i].nascimento.ano, alunosOrdAniver[i].cpf,
+//        alunosOrdAniver[i].sexo);
+//       printf("\n------------------------------------\n");
+//   }
+// }

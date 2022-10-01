@@ -3,13 +3,14 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>gcc Escola.c Aluno.c Utils.c Professor.c Disciplina.c -o escola
+#include <string.h>
 #include "Utils.h"
 
 #define VALIDO 1
 #define INVALIDO 0
 #define TAMNOME 41
 #define TAMCPF 15
+#define TAMMATERIAS 8
 #define TAM 50
 
 typedef struct professor{
@@ -18,6 +19,8 @@ typedef struct professor{
   char sexo;
   Data nascimento;
   char cpf[TAMCPF];
+  int materias [TAMMATERIAS];
+  int numMat;
 } Professor;
 
 int mainProfessor(Professor listaProfessor[], int qtdAluno);
@@ -29,6 +32,7 @@ int excluirProfessor(Professor professor[], int qtd);
 int menuGerarRelatoriosP();
 void exibirRelatoriosP(Professor lista[], int qtd);
 int listarPorSexoP(Professor lista[] ,int qtd);
+void listarPorDataDeNascimentoP(Professor lista[], int qtd);
 int getProximaMatriculaP();
 
 #endif

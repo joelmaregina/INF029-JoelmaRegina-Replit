@@ -10,7 +10,7 @@
 #define INVALIDO 0
 #define TAMNOME 41
 #define TAMCPF 15
-#define TAMMATERIAS 12
+#define TAMMATERIAS 8
 #define TAM 50
 
 typedef struct aluno{
@@ -19,7 +19,9 @@ typedef struct aluno{
   char sexo;
   Data nascimento;
   char cpf[TAMCPF];
-  char disciplinas[TAMNOME][TAMMATERIAS];
+  int disciplinas[TAMMATERIAS];
+  int numDisciplinas;
+  int dataInt;
 } Aluno;
 
 int mainAluno(Aluno listaAluno[], int qtdAluno);
@@ -32,8 +34,8 @@ int excluirAluno(Aluno lista[], int qtd);
 int menuGerarRelatoriosA();
 void exibirRelatoriosA(Aluno lista[], int qtd);
 int listarPorSexoA(Aluno lista[] ,int qtd);
-int listarPorNomeA(Aluno lista[], int qtd);
-int listarPorDataDeNascimentoA(Aluno lista[], int qtd); // Não feito
+void listarInscritosMais3Disc(Aluno lista[], int qtd);
+void listarPorNomeA(Aluno lista[], int qtd);
+void listarPorDataDeNascimentoA(Aluno lista[], int qtd);
 
 #endif
-

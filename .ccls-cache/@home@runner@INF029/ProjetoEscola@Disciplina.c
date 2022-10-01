@@ -11,7 +11,6 @@ int menuDisciplina() {
 
 int mainDisciplina(Disciplina listaDisciplina[], int qtdDisciplina, Professor listaProfessor[], int qtdProfessor, Aluno listaAluno[], int qtdAluno)
 {
-  
   int opcao = 1;
 
   while(opcao !=0){
@@ -39,10 +38,11 @@ int mainDisciplina(Disciplina listaDisciplina[], int qtdDisciplina, Professor li
         break;
       }
       case 5: {
-        exibirRelatoriosD(listaDisciplina, qtdDisciplina);
+        exibirRelatoriosD(listaDisciplina, qtdDisciplina, listaAluno, qtdAluno);
         break;
       }
-      default: printf("Opção Inválida. Digite um número entre 0 e 5.");
+      default: 
+        printf("Opção Inválida. Digite um número entre 0 e 5.");
     }
   } 
   return qtdDisciplina;
@@ -51,36 +51,35 @@ int mainDisciplina(Disciplina listaDisciplina[], int qtdDisciplina, Professor li
 int cadastrarDisciplina(Disciplina disciplina[], int qtd, Professor listaProfessor[], int qtdProfessor){
   char nome[TAMNOME];
   int matriculaProfessor;
+  int indexP;
   int vagas;
   int semestre;
-  int professor = INVALIDO;
   
   printf("======== CADASTRO DE DISCIPLINAS ======== \n");
 
   printf("Digite a matricula do professor da disciplina: \n");
   scanf("%d", &matriculaProfessor);
-  for(int i = 0; i < qtdProfessor; i++){
-    if(matriculaProfessor == listaProfessor[i].matricula){
-      strcpy(disciplina[qtd].nomeProfessor, listaProfessor[i].nome);
-      disciplina[qtd].matriculaProfessor = listaProfessor[i].matricula;
-      professor = VALIDO;
-      printf("\n Professor encontrado e atribuído á matéria\n");
-    }
-  }
-  if(professor == INVALIDO){
+  indexP = validaProfessor(matriculaProfessor, listaProfessor, qtdProfessor);
+  if(indexP != -1){
+      strcpy(disciplina[qtd].nomeProfessor, listaProfessor[indexP].nome);
+      disciplina[qtd].matriculaProfessor = listaProfessor[indexP].matricula;
+      printf("\n Professor encontrado e atribuído á matéria\n\n");
+  } else {
     printf("\n Professor não encontrado!\n");
      return qtd;
   }
   
   disciplina[qtd].codigoDisciplina = getCodigoDisciplina();
   getchar();
+  listaProfessor[indexP].materias[listaProfessor[indexP].numMat] = disciplina[qtd].codigoDisciplina;
+  listaProfessor[indexP].numMat++;
 
   printf("Digite o nome da disciplina: \n");
   fgets(nome, TAMNOME, stdin);
   getchar();
   strcpy(disciplina[qtd].nome, nome);
   
-  printf("Digite o número do semestre da disciplina. Digite 0 para disciplinas optativas: \n");
+  printf("Digite o número do semestre da disciplina.\n  --Digite 0 para disciplinas optativas: \n");
   scanf("%d", &semestre);
   disciplina[qtd].semestre = semestre;
   getchar();
@@ -125,6 +124,7 @@ int atualizarDisciplina (Disciplina disciplina[], int qtd, Professor listaProfes
   printf("Digite o código da disciplina que você quer Atualizar: ");
   scanf("%d", &numMateria);
   int opcao = 1;
+  int indexP;
 
   while (opcao != 0) {
     opcao = menuAtualizarDisciplina();
@@ -146,19 +146,20 @@ int atualizarDisciplina (Disciplina disciplina[], int qtd, Professor listaProfes
           case 2: {
             printf("Digite a matricula do(a) novo(a) professor(a) da disciplina: \n");
             scanf("%d", &matriculaNovoProfessor);
-            for(int j = 0; j < qtdProfessor; j++){
-              if(matriculaNovoProfessor == listaProfessor[j].matricula){
-                strcpy(disciplina[i].nomeProfessor, listaProfessor[j].nome);
-                disciplina[i].matriculaProfessor = listaProfessor[j].matricula;
-                professor = VALIDO;
-                printf("\n Novo professor encontrado e atribuído á matéria!\n");
-              }
+            indexP = validaProfessor(matriculaNovoProfessor, listaProfessor, qtdProfessor);
+            if(indexP != -1){
+                listaProfessor[i].numMat--;
+                strcpy(disciplina[i].nomeProfessor, listaProfessor[indexP].nome);
+                disciplina[i].matriculaProfessor = listaProfessor[indexP].matricula;
+                listaProfessor[indexP].materias[listaProfessor[i].numMat] = disciplina[i].codigoDisciplina;
+                  listaProfessor[indexP].numMat++;
+                printf("\n Professor encontrado e atribuído á matéria\n\n");
+            } else {
+              printf("\n Professor não encontrado!\n");
+               return qtd;
             }
-            if(professor == INVALIDO){
-              printf("\n --- Novo professor não encontrado! --- \n");
-            }
+            break;
           }
-          break;
           case 3: {
             printf("Digite o novo semestre da Disciplina : \n");
             scanf("%d", &disciplina[i].semestre);
@@ -171,7 +172,8 @@ int atualizarDisciplina (Disciplina disciplina[], int qtd, Professor listaProfes
             printf("\n --- Número de vagas da Disciplina atualizado com sucesso! --- \n");
             break;
           }
-          default: printf("Opção Inválida. Digite um número entre 0 e 4.");
+          default: 
+            printf("Opção Inválida. Digite um número entre 0 e 4.");
         }
       return 0;
       }
@@ -210,7 +212,7 @@ int menuGerarRelatoriosD(){
   return opcao; 
 }
 
-void exibirRelatoriosD(Disciplina lista[], int qtd) {
+void exibirRelatoriosD(Disciplina listaD[], int qtdD, Aluno listaA[], int qtdA) {
   int opcao = 1;
 
   while (opcao != 0) {
@@ -222,11 +224,11 @@ void exibirRelatoriosD(Disciplina lista[], int qtd) {
         break;
       } 
       case 1: {
-        listarMaisQue40vagas(lista, qtd);
+        listarMaisQue40vagas(listaD, qtdD);
         break;
       }
       case 2: {
-        listarDetalhesDisciplina(lista, qtd);
+        listarDetalhesDisciplina(listaD, qtdD, listaA, qtdA);
         break;
       }
       default: printf("Opção Inválida. Digite um número entre 0 e .");
@@ -243,9 +245,49 @@ int listarMaisQue40vagas(Disciplina lista[],int  qtd){
       printf("\n ________________________________________ \n\n Nome da Disciplina: %s\n Nome do Professor: %s(Matrícula: %d) \n Número de vagas: %d", lista[i].nome, lista[i].nomeProfessor, lista[i].matriculaProfessor ,lista[i].vagas);
     }
   }
-  
 }
 
-int listarDetalhesDisciplina(Disciplina lista[],int  qtd){
-  
+int listarDetalhesDisciplina(Disciplina listaD[], int qtdD, Aluno listaA[], int qtdA){
+  int codDisciplina;
+  int indexD;
+  printf("Digite o código da disciplina que você deseja imprimir em detalhes: ");
+  scanf("%d", &codDisciplina);
+  indexD = validarDisciplinaD(listaD, qtdD, codDisciplina);
+  if(indexD == -1){
+    printf("\n   Disciplina não encontrada! \n\n");
+    return 0;
+  } else{
+    printf("\n *********** DETALHES DE DISCIPLINA: ***********\n");
+    printf(" Código da Disciplina: %d\n Nome da disciplina: %s\n Professor: %s  =>(Matricula do professor: %d)\n Semestre: %d;\n Vagas: %d\n", listaD[indexD].codigoDisciplina, listaD[indexD].nome, listaD[indexD].nomeProfessor, listaD[indexD].matriculaProfessor, listaD[indexD].semestre, listaD[indexD].vagas);
+    if(listaD[indexD].numAlunos == 0){
+      printf("\n Ainda não existem aluno matriculados nesta matéria! \n\n");
+    } else {
+      printf("\n Alunos inscritos: \n");
+      for(int i = 0; i <= listaD[indexD].numAlunos; i++){
+        int matriculaAluno = listaD[indexD].alunos[i];
+        for(int j = 0; j < qtdA; j++){
+          if(matriculaAluno == listaA[j].matricula) printf(" [0%d] Aluno(%d): %s \n", j+1,listaA[j].matricula, listaA[j].nome);
+        }
+      }
+      printf("\n---------------------------------------------\n");
+    }
+  }
+}
+
+int validaProfessor(int matriculaProf, Professor listaProfessor[], int qtdProfessor){
+  for(int i = 0; i < qtdProfessor; i++){
+    if(matriculaProf == listaProfessor[i].matricula){
+      return i;
+    }
+  }
+  return -1;
+}
+
+int validarDisciplinaD(Disciplina listaD[], int qtdD, int codDisc){
+  for(int i = 0; i < qtdD; i++){
+    if(codDisc == listaD[i].codigoDisciplina){
+      return i;
+    }
+  }
+  return -1;
 }
