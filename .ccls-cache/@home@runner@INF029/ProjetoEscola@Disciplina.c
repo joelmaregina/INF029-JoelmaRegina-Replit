@@ -231,7 +231,7 @@ void exibirRelatoriosD(Disciplina listaD[], int qtdD, Aluno listaA[], int qtdA) 
         listarDetalhesDisciplina(listaD, qtdD, listaA, qtdA);
         break;
       }
-      default: printf("Opção Inválida. Digite um número entre 0 e .");
+      default: printf("Opção Inválida. Digite um número entre 0 e 2.");
     }
   }
 }

@@ -5,7 +5,7 @@ int imprimeMenu() {
   printf("\n========================================== \n");
   printf("Seja bem vindo ao sistema da Escola Saber.\n");
   printf("Digite a opção desejada:\n");
-  printf("  1 - Área do Alunos\n  2 - Área do Professor\n  3 - Central das disciplinas\n  4 - Inscrever aluno em disciplina\n  5 - Listar relatórios \n ");
+  printf("  1 - Área do Alunos\n  2 - Área do Professor\n  3 - Central das disciplinas\n  4 - Inscrever aluno em disciplina\n  5 - Busca | Aniversariantes do mês \n ");
   scanf("%d", &opcao);
   return opcao;
 }
@@ -54,7 +54,7 @@ int main(void) {
 int menuRelatoriosPrincipal(){
   int opcao;
   printf("\n\n |||||||||||| GERAR RELATÓRIOS |||||||||||| \n\n");
-  printf("Digite a sua opção:\n  1 - Listar aniversariantes de um mês\n  2 - Buscar professores e alunos\n  3 - Inscrever aluno em Disciplinas  \n  0 - Retornar ao menu anterior\n");
+  printf("Digite a sua opção:\n  1 - Listar aniversariantes de um mês\n  2 - Buscar professores e alunos\n  0 - Retornar ao menu anterior\n");
   scanf("%d", &opcao);
   return opcao;
 }
@@ -78,11 +78,7 @@ void exibirRelatoriosPrincipal(Aluno listaA[], int qtdA, Professor listaP[], int
         buscarPessoas(listaA, qtdA, listaP, qtdP);
         break;
       }
-      case 3: {
-        inscreverAlunoDisciplina(listaA, qtdA, listaD, qtdD);
-        break;
-      }
-      default: printf("\n Opção Inválida. Digite um número entre 0 e . \n");
+      default: printf("\n Opção Inválida. Digite um número entre 0 e 2. \n");
     }
   }
 }
@@ -131,6 +127,7 @@ int buscarPessoas(Aluno listaA[], int qtdA, Professor listaP[], int qtdP){
   getchar();
   printf("Digite o nome (ou fragmento) a ser buscado (Mínimo 3 caracteres): ");
   fgets(string, TAMNOME, stdin);
+  
   
   for(int i = 0; i < 10; i++) if(string[i] == '\n') string[i] = '\0';
 
@@ -203,11 +200,11 @@ int inscreverAlunoDisciplina(Aluno listaA[], int qtdA, Disciplina listaD[], int 
   if(indexD != -1){
     for(int i = 0; i <= listaA[indexA].numDisciplinas; i++){
       if(listaA[indexA].disciplinas[i] == codigoDisciplina){
-        printf("\n O aluno já está matriculado nesta matéria! \n");
+        printf("\n O(A) aluno(a) %s já está matriculado nesta disciplina! \n", listaA[indexA].nome);
         return 0;
       }
     }
-    printf("\n Disciplina encontrada! \n Aluno inscrito com sucesso! \n\n");
+    printf("\n Disciplina: %s  encontrada! \n Aluno(a) %s inscrito(a) com sucesso! \n\n", listaD[indexD].nome, listaA[indexA].nome);
     listaD[indexD].alunos[listaD[indexD].numAlunos] = listaA[indexA].matricula;
     listaA[indexA].disciplinas[listaA[indexA].numDisciplinas] = listaD[indexD].codigoDisciplina;
     listaD[indexD].numAlunos++;

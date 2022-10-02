@@ -38,6 +38,7 @@ int mainAluno(Aluno listaAluno[], int qtdAluno) {
       }
       case 5: {
         exibirRelatoriosA(listaAluno, qtdAluno);
+        break;
       }
       default:
         printf("Opção Inválida. Digite um número entre 0 e 5.");
@@ -101,10 +102,10 @@ void listaAlunos(Aluno lista[], int qtd) {
   printf("\n ============ LISTA DE ALUNOS ============\n");
   for (int i = 0; i < qtd; i++) {
     printf("Nome: %s \nMatricula: %d\nData de Nascimento: %d/%d/%d;\nCPF: %s "
-           "\nSEXO: %c\n",
+           "\nSEXO: %c\nNº de disciplinas: %d",
            lista[i].nome, lista[i].matricula, lista[i].nascimento.dia,
            lista[i].nascimento.mes, lista[i].nascimento.ano, lista[i].cpf,
-           lista[i].sexo);
+           lista[i].sexo, lista[i].numDisciplinas);
     printf("\n------------------------------------\n");
   }
 }
@@ -268,10 +269,10 @@ int listarPorSexoA(Aluno lista[], int qtd){
   for(int i = 0; i < qtd; i++){
     if (lista[i].sexo == sexo || lista[i].sexo == sexo2){
       printf("Nome: %s \nMatricula: %d\nData de Nascimento: %d/%d/%d;\nCPF: %s "
-       "\nSEXO: %c\n",
+       "\nSEXO: %c\nNº de disciplinas: %d",
        lista[i].nome, lista[i].matricula, lista[i].nascimento.dia,
        lista[i].nascimento.mes, lista[i].nascimento.ano, lista[i].cpf,
-       lista[i].sexo);
+       lista[i].sexo, lista[i].numDisciplinas);
       printf("\n------------------------------------\n");
     }
   }
@@ -292,14 +293,39 @@ void listarInscritosMais3Disc(Aluno lista[], int qtd){
 }
 
 void listarPorNomeA(Aluno lista[], int qtd){
-  
+  Aluno alunosOrdNome[TAM];
+  Aluno alunoAux;
+  int i, j;
+
+  for(i = 0; i < qtd; i++){
+    alunosOrdNome[i] = lista[i];    
+  }
+
+  for(int i = 0; i < qtd; i++){
+    for(int j = 0; j < qtd - 1 - i; j++){
+      if(strcmp(alunosOrdNome[j].nome, alunosOrdNome[j+1].nome) > 0){
+        alunoAux = alunosOrdNome[j];
+        alunosOrdNome[j] = alunosOrdNome[j+1];
+        alunosOrdNome[j+1] = alunoAux;
+      }
+    }
+  }
+
+    for(i = 0; i < qtd; i++) {
+    printf("Nome: %s \nMatricula: %d\nData de Nascimento: %d/%d/%d;\nCPF: %s \nSEXO: %c\nNº de disciplinas: %d",
+       alunosOrdNome[i].nome, alunosOrdNome[i].matricula, alunosOrdNome[i].nascimento.dia,
+       alunosOrdNome[i].nascimento.mes, alunosOrdNome[i].nascimento.ano, alunosOrdNome[i].cpf,
+       alunosOrdNome[i].sexo, lista[i].numDisciplinas);
+      printf("\n------------------------------------\n");
+  }
 }
 
 void listarPorDataDeNascimentoA(Aluno lista[], int qtd){
+  //Não está funcionando 100%
   Aluno alunosOrdAniver[TAM];
   Aluno alunoAux;
   int i, j;
-  long int sumAniver1, sumAniver2;
+  unsigned long int sumAniver1, sumAniver2;
 
   for(i = 0; i < qtd; i++){
     alunosOrdAniver[i] = lista[i];    
@@ -307,9 +333,9 @@ void listarPorDataDeNascimentoA(Aluno lista[], int qtd){
   
   for(i = 0, j = 1; i < qtd - 1; i++, j++){
     int multiplicadorMes1 = 100;
-    if(alunosOrdAniver[i].nascimento.mes > 10) multiplicadorMes1 = 1000;
+    //if(alunosOrdAniver[i].nascimento.mes > 10) multiplicadorMes1 = 1000;
     int multiplicadorMes2 = 100;
-    if(alunosOrdAniver[j].nascimento.mes > 10) multiplicadorMes2 = 1000;
+    //if(alunosOrdAniver[j].nascimento.mes > 10) multiplicadorMes2 = 1000;
     sumAniver1 = (alunosOrdAniver[i].nascimento.ano * 10000) + (alunosOrdAniver[i].nascimento.mes * multiplicadorMes1) + alunosOrdAniver[i].nascimento.dia;
     sumAniver2 = (alunosOrdAniver[j].nascimento.ano * 10000) + (alunosOrdAniver[j].nascimento.mes * multiplicadorMes2) + alunosOrdAniver[j].nascimento.dia;
 
@@ -323,10 +349,10 @@ void listarPorDataDeNascimentoA(Aluno lista[], int qtd){
   printf("\n ||| Alunos Ordenados pelo nascimento: ||| \n");
 
   for(i = 0; i < qtd; i++) {
-    printf("Nome: %s \nMatricula: %d\nData de Nascimento: %d/%d/%d;\nCPF: %s \nSEXO: %c\n",
+    printf("Nome: %s \nMatricula: %d\nData de Nascimento: %d/%d/%d;\nCPF: %s \nSEXO: %c\nNº de disciplinas: %d",
        alunosOrdAniver[i].nome, alunosOrdAniver[i].matricula, alunosOrdAniver[i].nascimento.dia,
        alunosOrdAniver[i].nascimento.mes, alunosOrdAniver[i].nascimento.ano, alunosOrdAniver[i].cpf,
-       alunosOrdAniver[i].sexo);
+       alunosOrdAniver[i].sexo, alunosOrdAniver[i].numDisciplinas);
       printf("\n------------------------------------\n");
   }
 }

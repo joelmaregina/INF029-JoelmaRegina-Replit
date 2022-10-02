@@ -32,7 +32,8 @@ int excluirProfessor(Professor professor[], int qtd);
 int menuGerarRelatoriosP();
 void exibirRelatoriosP(Professor lista[], int qtd);
 int listarPorSexoP(Professor lista[] ,int qtd);
-void listarPorDataDeNascimentoP(Professor lista[], int qtd);
+void listarPorNomeP(Professor lista[], int qtd);
+void listarPorDataDeNascimentoP(Professor lista[], int qtd); // Não está funcionando 100%
 int getProximaMatriculaP();
 
 #endif

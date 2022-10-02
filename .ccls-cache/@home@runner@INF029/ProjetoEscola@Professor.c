@@ -39,8 +39,10 @@ int mainProfessor(Professor listaProfessor[], int qtdProfessor)
       }
       case 5: {
         exibirRelatoriosP(listaProfessor, qtdProfessor);
+        break;
       }
-      default: printf("\n Opção Inválida. Digite um número entre 0 e 5. \n");
+      default: 
+        printf("\n Opção Inválida. Digite um número entre 0 e 5. \n");
     }
   } 
   return qtdProfessor;
@@ -94,7 +96,7 @@ int cadastrarProfessor(Professor professor[], int qtd){
 void listaProfessores(Professor lista[], int qtd){
   printf("\n *********** LISTA DE PROFESSORES *********** \n");
   for (int i = 0; i < qtd; i++){
-    printf("Nome: %s \nMatricula: %d\nData de Nascimento: %d/%d/%d;\nCPF: %s \nSEXO: %c\n", lista[i].nome, lista[i].matricula, lista[i].nascimento.dia, lista[i].nascimento.mes, lista[i].nascimento.ano, lista[i].cpf, lista[i].sexo);
+    printf("Nome: %s \nMatricula: %d\nData de Nascimento: %d/%d/%d;\nCPF: %s \nSEXO: %c\nNº de turmas: %d", lista[i].nome, lista[i].matricula, lista[i].nascimento.dia, lista[i].nascimento.mes, lista[i].nascimento.ano, lista[i].cpf, lista[i].sexo, lista[i].numMat);
   printf("\n------------------------------------\n");
   }  
 }
@@ -220,14 +222,15 @@ void exibirRelatoriosP(Professor lista[], int qtd){
         break;
       }
       case 2: {
-        //listarPorNomeP(lista, qtd);
+        listarPorNomeP(lista, qtd);
         break;
       }
       case 3: {
         listarPorDataDeNascimentoP(lista, qtd);
         break;
       }
-      default: printf("Opção Inválida. Digite um número entre 0 e 3.");
+      default: 
+        printf("Opção Inválida. Digite um número entre 0 e 3.");
     }
   }
 }
@@ -254,21 +257,46 @@ int listarPorSexoP(Professor lista[], int qtd){
   for(int i = 0; i < qtd; i++){
     if (lista[i].sexo == sexo || lista[i].sexo == sexo2){
       printf("Nome: %s \nMatricula: %d\nData de Nascimento: %d/%d/%d;\nCPF: %s "
-       "\nSEXO: %c\n",
+       "\nSEXO: %c\nNº de turmas: %d",
        lista[i].nome, lista[i].matricula, lista[i].nascimento.dia,
        lista[i].nascimento.mes, lista[i].nascimento.ano, lista[i].cpf,
-       lista[i].sexo);
+       lista[i].sexo, lista[i].numMat);
       printf("\n------------------------------------\n");
     }
   }
   return 0;
 }
 
-// void listarPorNomeP(Professor lista[], int qtd){
-  
-// }
+void listarPorNomeP(Professor lista[], int qtd){
+  Professor profOrdNome[TAM];
+  Professor professorAux;
+  int i, j;
+
+  for(i = 0; i < qtd; i++){
+    profOrdNome[i] = lista[i];    
+  }
+
+  for(int i = 0; i < qtd; i++){
+    for(int j = 0; j < qtd - 1 - i; j++){
+      if(strcmp(profOrdNome[j].nome, profOrdNome[j+1].nome) > 0){
+        professorAux = profOrdNome[j];
+        profOrdNome[j] = profOrdNome[j+1];
+        profOrdNome[j+1] = professorAux;
+      }
+    }
+  }
+
+    for(i = 0; i < qtd; i++) {
+    printf("Nome: %s \nMatricula: %d\nData de Nascimento: %d/%d/%d;\nCPF: %s \nSEXO: %c\nNº de turmas: %d",
+       profOrdNome[i].nome, profOrdNome[i].matricula, profOrdNome[i].nascimento.dia,
+       profOrdNome[i].nascimento.mes, profOrdNome[i].nascimento.ano, profOrdNome[i].cpf,
+       profOrdNome[i].sexo, lista[i].numMat);
+      printf("\n------------------------------------\n");
+  }
+}
 
 void listarPorDataDeNascimentoP(Professor lista[], int qtd){
+  //Não está funcionando 100%
   Professor profsOrdNasc[TAM];
   Professor profAux;
   int i, j;
@@ -280,9 +308,9 @@ void listarPorDataDeNascimentoP(Professor lista[], int qtd){
   
   for(i = 0, j = 1; i < qtd - 1; i++, j++){
     int multiplicadorMes1 = 100;
-    if(profsOrdNasc[i].nascimento.mes > 10) multiplicadorMes1 = 1000;
+    // if(profsOrdNasc[i].nascimento.mes > 10) multiplicadorMes1 = 1000;
     int multiplicadorMes2 = 100;
-    if(profsOrdNasc[j].nascimento.mes > 10) multiplicadorMes2 = 1000;
+    // if(profsOrdNasc[j].nascimento.mes > 10) multiplicadorMes2 = 1000;
     sumAniver1 = (profsOrdNasc[i].nascimento.ano * 10000) + (profsOrdNasc[i].nascimento.mes * multiplicadorMes1) + profsOrdNasc[i].nascimento.dia;
     sumAniver2 = (profsOrdNasc[j].nascimento.ano * 10000) + (profsOrdNasc[j].nascimento.mes * multiplicadorMes2) + profsOrdNasc[j].nascimento.dia;
     if(sumAniver1 > sumAniver2){
@@ -295,10 +323,11 @@ void listarPorDataDeNascimentoP(Professor lista[], int qtd){
   printf("\n ||| Alunos Ordenados pelo nascimento: ||| \n");
 
   for(i = 0; i < qtd; i++) {
-    printf("Nome: %s \nMatricula: %d\nData de Nascimento: %d/%d/%d;\nCPF: %s \nSEXO: %c\n",
+    printf("Nome: %s \nMatricula: %d\nData de Nascimento: %d/%d/%d;\nCPF: %s \nSEXO: %c\nNº de turmas: %d",
        profsOrdNasc[i].nome, profsOrdNasc[i].matricula, profsOrdNasc[i].nascimento.dia,
        profsOrdNasc[i].nascimento.mes, profsOrdNasc[i].nascimento.ano, profsOrdNasc[i].cpf,
-       profsOrdNasc[i].sexo);
+       profsOrdNasc[i].sexo, profsOrdNasc[i].numMat);
       printf("\n------------------------------------\n");
   }
 }
+
