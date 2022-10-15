@@ -42,8 +42,8 @@ int main(void) {
       }
       case 5: {
         exibirRelatoriosPrincipal(listaAluno, qtdAluno, listaProfessor, qtdProfessor, listaDisciplina, qtdDisciplina);
+        break;
       }
-      break;
       default: printf("Opção Inválida. Digite um número entre 0 e 5.");
     }
   }
