@@ -34,11 +34,11 @@ int main()
     //testSomar();
     //testFatorial();
     testQ1();
-    //testQ2();
+    testQ2();
     testQ3();
     testQ4();
-    // testQ5();
-    // testQ6();
+    testQ5();
+    testQ6();
 }
 
 void testSomar()
@@ -72,7 +72,7 @@ void testQ1()
     strcpy(str, "45/4/2014");
     printf("Q1 - %d\n", q1(str) == 0);
     strcpy(str, "/9/2014");
-    printf("Q3 - %d\n", q1(str) == 0);
+    printf("Q1 - %d\n", q1(str) == 0);
 }
 
 void testQ2()
@@ -89,10 +89,10 @@ void testQ2()
     strcpy(datainicial, "01/06/2015");
     strcpy(datafinal, "01/06/2016");
     dma = q2(datainicial, datafinal);
-    printf("Q2 - %d\n", dma.retorno == 1);
-    printf("Q2 - %d\n", dma.qtdDias == 0);
-    printf("Q2 - %d\n", dma.qtdMeses == 0);
-    printf("Q2 - %d\n", dma.qtdAnos == 1);
+    printf("T2 - %d\n", dma.retorno == 1);
+    printf("T2 - %d\n", dma.qtdDias == 0);
+    printf("T2 - %d\n", dma.qtdMeses == 0);
+    printf("T2 - %d\n", dma.qtdAnos == 1);
 
     //teste 2 - retornos
     qtdDias = -1;
@@ -102,17 +102,17 @@ void testQ2()
     strcpy(datainicial, "01/30/2015");
     strcpy(datafinal, "01/06/2016");
     dma = q2(datainicial, datafinal);
-    printf("Q2 - %d\n", dma.retorno == 2);
+    printf("T2 - %d\n", dma.retorno == 2);
 
     strcpy(datainicial, "01/3/2015");
     strcpy(datafinal, "40/06/2016");
     dma = q2(datainicial, datafinal);
-    printf("Q2 - %d\n", dma.retorno == 3);
+    printf("T2 - %d\n", dma.retorno == 3);
 
     strcpy(datainicial, "01/06/2016");
     strcpy(datafinal, "01/06/2015");
     dma = q2(datainicial, datafinal);
-    printf("Q2 - %d\n", dma.retorno == 4);
+    printf("T2 - %d\n", dma.retorno == 4);
 
     //teste 3
     qtdDias = -1;
@@ -122,10 +122,10 @@ void testQ2()
     strcpy(datainicial, "06/06/2017");
     strcpy(datafinal, "07/07/2017");
     dma = q2(datainicial, datafinal);
-    printf("Q2 - %d\n", dma.retorno == 1);
-    printf("Q2 - %d\n", dma.qtdDias == 1);
-    printf("Q2 - %d\n", dma.qtdMeses == 1);
-    printf("Q2 - %d\n", dma.qtdAnos == 0);
+    printf("T2 - %d\n", dma.retorno == 1);
+    printf("T2 - %d\n", dma.qtdDias == 1);
+    printf("T2 - %d\n", dma.qtdMeses == 1);
+    printf("T2 - %d\n", dma.qtdAnos == 0);
 }
 
 void testQ3()
@@ -151,11 +151,11 @@ void testQ4()
     }
     strcpy(strTexto, "Laboratorio de programacao: para ratos de programação");
     strcpy(strBusca, "rato");
-    printf("Q4 - %d\n", q4(strTexto, strBusca, posicoes) == 2);
-    printf("Q4 - %d\n", posicoes[0] == 5);
-    printf("Q4 - %d\n", posicoes[1] == 8);
-    printf("Q4 - %d\n", posicoes[2] == 34);
-    printf("Q4 - %d\n", posicoes[3] == 37);
+    printf("T4 - %d\n", q4(strTexto, strBusca, posicoes) == 2);
+    printf("T4 - %d\n", posicoes[0] == 5);
+    printf("T4 - %d\n", posicoes[1] == 8);
+    printf("T4 - %d\n", posicoes[2] == 34);
+    printf("T4 - %d\n", posicoes[3] == 37);
 
     for (i = 0; i < 30; i++)
     {
@@ -163,13 +163,13 @@ void testQ4()
     }
     strcpy(strTexto, "Olá, o mundo é muito grande. Tem muitas pessoas, e muitos problemas");
     strcpy(strBusca, "mui");
-    printf("Q4 - %d\n", q4(strTexto, strBusca, posicoes) == 3);
-    printf("Q4 - %d\n", posicoes[0] == 16);
-    printf("Q4 - %d\n", posicoes[1] == 18);
-    printf("Q4 - %d\n", posicoes[2] == 34);
-    printf("Q4 - %d\n", posicoes[3] == 36);
-    printf("Q4 - %d\n", posicoes[4] == 52);
-    printf("Q4 - %d\n", posicoes[5] == 54);
+    printf("T4 - %d\n", q4(strTexto, strBusca, posicoes) == 3);
+    printf("T4 - %d\n", posicoes[0] == 16);
+    printf("T4 - %d\n", posicoes[1] == 18);
+    printf("T4 - %d\n", posicoes[2] == 34);
+    printf("T4 - %d\n", posicoes[3] == 36);
+    printf("T4 - %d\n", posicoes[4] == 52);
+    printf("T4 - %d\n", posicoes[5] == 54);
 }
 
 void testQ5()
@@ -182,8 +182,8 @@ void testQ5()
 
 void testQ6()
 {
-    printf("Q6 - %d\n", q6(34567368, 3) == 2);
-    printf("Q6 - %d\n", q6(34567368, 4576) == 0);
-    printf("Q6 - %d\n", q6(3539343, 3) == 4);
-    printf("Q6 - %d\n", q6(3539343, 39) == 1);
+    printf("T6 - %d\n", q6(34567368, 3) == 2);
+    printf("T6 - %d\n", q6(34567368, 4576) == 0);
+    printf("T6 - %d\n", q6(3539343, 3) == 4);
+    printf("T6 - %d\n", q6(3539343, 39) == 1);
 }

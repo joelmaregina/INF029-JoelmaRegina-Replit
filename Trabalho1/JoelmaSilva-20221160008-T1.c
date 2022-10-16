@@ -153,6 +153,7 @@ int q1(char data[])
 
   //quebrar a string data em strings sDia, sMes, sAno
   dataRecebida = quebraData(data);
+  
   if (dataRecebida.valido == 0) return 0;
 
   // Valida se as datas digitadas existem:
@@ -167,6 +168,7 @@ int q1(char data[])
   } else {
     if(dataRecebida.iMes == 2 && dataRecebida.iDia > 28) return 0;
   }
+
   return datavalida;
 }
 
@@ -187,10 +189,11 @@ int q1(char data[])
  */
 DiasMesesAnos q2(char datainicial[], char datafinal[])
 {
-    
-    //calcule os dados e armazene nas três variáveis a seguir
-  
     DiasMesesAnos dma;
+  
+    DataQuebrada dataInicial = quebraData(datainicial);
+    DataQuebrada dataFinal = quebraData(datafinal);
+  
 
     if (q1(datainicial) == 0){
       dma.retorno = 2;
@@ -200,9 +203,22 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
       return dma;
     }else{
       //verifique se a data final não é menor que a data inicial
-      
-      //calcule a distancia entre as datas
+      if(dataInicial.iAno > dataFinal.iAno){
+        dma.retorno = 4;
+        return dma;
+      } else if((dataInicial.iAno <= dataInicial.iAno) && (dataInicial.iMes > dataFinal.iMes)){
+        dma.retorno = 4;
+        return dma;
+      } else if((dataInicial.iAno <= dataInicial.iAno) && (dataInicial.iMes <= dataFinal.iMes) && dataInicial.iDia > dataFinal.iDia){
+        dma.retorno = 4;
+        return dma;
+      }
+      //calcule os dados e armazene nas três variáveis a seguir:
+      dma.qtdAnos = dataFinal.iAno - dataInicial.iAno;
+      dma.qtdMeses = dataFinal.iMes - dataInicial.iMes;
+      dma.qtdDias = dataFinal.iDia - dataInicial.iDia;
 
+      //calcule a distancia entre as datas
 
       //se tudo der certo
       dma.retorno = 1;
@@ -321,8 +337,23 @@ int q4(char *strTexto, char *strBusca, int posicoes[30])
 
 int q5(int num)
 {
-
-    return num;
+  int i, j, k;
+  int maiorBase;
+  int divisor= 1; 
+  int multiplicador;
+  int invertido = 0;
+  
+  for(i = num, maiorBase = 1; i >= 10; i = i/10, maiorBase++);
+  
+  for(k = 1; k < maiorBase; k++) divisor *= 10; 
+  
+  for(j = maiorBase, multiplicador = 1 ; j > 0 ; j--, multiplicador*=10, divisor/=10){
+      int aux = (num/divisor)*multiplicador;
+      invertido += aux;
+      num %= divisor;
+  }
+  num = invertido;
+  return num;
 }
 
 /*
@@ -337,6 +368,22 @@ int q5(int num)
 
 int q6(int numerobase, int numerobusca)
 {
-    int qtdOcorrencias;
-    return qtdOcorrencias;
+  int qtdOcorrencias = 0;
+  
+  int i, j, k;
+  int maiorBase;
+  int divisor = 1; 
+  int multiplicador;
+  
+  for(i = numerobase, maiorBase = 1; i >= 10; i = i/10, maiorBase++);
+  
+  for(k = 1; k < maiorBase; k++) divisor *= 10; 
+  
+  for(j = maiorBase, multiplicador = 1 ; divisor > 0 ; j++, multiplicador*=10, divisor/=10){
+    int aux = (numerobase/divisor);
+    numerobase %= divisor;
+    if (numerobusca == aux) qtdOcorrencias++;
+  }
+  
+  return qtdOcorrencias;
 }
