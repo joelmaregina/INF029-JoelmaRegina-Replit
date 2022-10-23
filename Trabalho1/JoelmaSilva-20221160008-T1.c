@@ -25,6 +25,9 @@
 #include <string.h>
 #include "JoelmaSilva-20221160008-T1.h" // Substitua pelo seu arquivo de header renomeado
 #include <stdlib.h>
+
+int ehBissexto(int ano);
+
 /*
 ## função utilizada para testes  ##
  somar = somar dois valores
@@ -189,42 +192,85 @@ int q1(char data[])
  */
 DiasMesesAnos q2(char datainicial[], char datafinal[])
 {
-    DiasMesesAnos dma;
-  
-    DataQuebrada dataInicial = quebraData(datainicial);
-    DataQuebrada dataFinal = quebraData(datafinal);
-  
+  DiasMesesAnos dma;
 
-    if (q1(datainicial) == 0){
-      dma.retorno = 2;
+  DataQuebrada dataInicial = quebraData(datainicial);
+  DataQuebrada dataFinal = quebraData(datafinal);
+
+  if (q1(datainicial) == 0){
+    dma.retorno = 2;
+    return dma;
+  }else if (q1(datafinal) == 0){
+    dma.retorno = 3;
+    return dma;
+  }else{
+    //verifique se a data final não é menor que a data inicial
+    if(dataInicial.iAno > dataFinal.iAno){
+      dma.retorno = 4;
       return dma;
-    }else if (q1(datafinal) == 0){
-      dma.retorno = 3;
+    } else if((dataInicial.iAno <= dataFinal.iAno) && (dataInicial.iMes > dataFinal.iMes)){
+      dma.retorno = 4;
       return dma;
-    }else{
-      //verifique se a data final não é menor que a data inicial
-      if(dataInicial.iAno > dataFinal.iAno){
-        dma.retorno = 4;
-        return dma;
-      } else if((dataInicial.iAno <= dataInicial.iAno) && (dataInicial.iMes > dataFinal.iMes)){
-        dma.retorno = 4;
-        return dma;
-      } else if((dataInicial.iAno <= dataInicial.iAno) && (dataInicial.iMes <= dataFinal.iMes) && dataInicial.iDia > dataFinal.iDia){
-        dma.retorno = 4;
-        return dma;
-      }
-      //calcule os dados e armazene nas três variáveis a seguir:
+    } else if((dataInicial.iAno <= dataFinal.iAno) && (dataInicial.iMes <= dataFinal.iMes) && dataInicial.iDia > dataFinal.iDia){
+      dma.retorno = 4;
+      return dma;
+    }
+    
+    //calcule os dados e armazene nas três variáveis a seguir:
+    dma.qtdAnos = dataFinal.iAno - dataInicial.iAno;
+    dma.qtdMeses = dataFinal.iMes - dataInicial.iMes;
+    dma.qtdDias = dataFinal.iDia - dataInicial.iDia;
+    //calcule a distância entre as datas
+    int meses[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    if ( (dataInicial.iMes <= 2 && ehBissexto(dataFinal.iAno)) ||
+          (dataFinal.iMes >= 2 && ehBissexto(dataFinal.iAno)) ) meses[1] = 29;
+    
+    if(dataFinal.iAno > dataInicial.iAno && dataFinal.iMes >= dataInicial.iMes && dataFinal.iDia  >=  dataInicial.iDia){
       dma.qtdAnos = dataFinal.iAno - dataInicial.iAno;
       dma.qtdMeses = dataFinal.iMes - dataInicial.iMes;
       dma.qtdDias = dataFinal.iDia - dataInicial.iDia;
-
-      //calcule a distancia entre as datas
-
-      //se tudo der certo
-      dma.retorno = 1;
-      return dma;
-      
+    } else if (dataFinal.iAno == dataInicial.iAno) {
+      for(int i = 0; i < (dataFinal.iMes - dataInicial.iMes); i++){}
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    // if (dataFinal.iAno  == dataInicial.iAno){
+    //   dma.qtdAnos = 0;
+    //   dma.meses = 
+    // } 
+    // if (dataFinal.iAno  > dataInicial.iAno) dma.qtdAnos = 0
+    // if(dataFinal.iMes >= dataInicial.iMes && dataFinal.iDia >= dataInicial.iDia){
+  
+    // } else if (dataFinal.iMes < dataInicial.iMes && dataFinal.iDia > dataInicial.iDia) {
+    //   /*TIRAR*/ dma.qtdMeses = -1;
+    //   dma.qtdDias = dataFinal.iDia - dataInicial.iDia; 
+    // } else if (dataFinal.iMes < dataInicial.iMes && dataFinal.iDia < dataInicial.iDia){
+    //   /*TIRAR*/dma.qtdMeses = -1;
+    //   /*TIRAR*/dma.qtdDias = -1;
+    // } else if (dataFinal.iMes > dataInicial.iMes && dataFinal.iDia > dataInicial.iDia){
+    //   dma.qtdMeses = dataFinal.iMes - dataInicial.iMes;
+    //   dma.qtdDias = dataFinal.iDia - dataInicial.iDia; 
+    // } else if (dataFinal.iMes > dataInicial.iMes && dataFinal.iDia < dataInicial.iDia){
+    //   dma.qtdMeses = dataFinal.iMes - dataInicial.iMes;
+    //   /*TIRAR*/ dma.qtdDias = -1;
+    // }
+
+    printf("DIFERENÇA: \n Dias: %d \n Meses: %d \n Anos: %d \n", dma.qtdDias, dma.qtdMeses, dma.qtdAnos);
+    //se tudo der certo
+    dma.retorno = 1;
+    return dma;
+    
+  }
     
 }
 
@@ -284,8 +330,13 @@ int q4(char *strTexto, char *strBusca, int posicoes[30])
     int inicio = -1;
     int fim = -1;
     int acentos = 0;
+    int acentosBusca = 0;
     int tamTexto = strlen(strTexto);
     int tamString = strlen(strBusca);
+
+    // Para desconsiderar as posicões duplicadas dos caracteres acentuados da string de busca:
+    for(int i = 0; i < tamString; i++) if (strBusca[i] == -61) acentosBusca++;
+    tamString -= acentosBusca;
     
     for (i = 0; i < 30; i++) posicoes[i] = -1;
 
@@ -365,25 +416,82 @@ int q5(int num)
  @saida
     Quantidade de vezes que número de busca ocorre em número base
  */
-
-int q6(int numerobase, int numerobusca)
-{
+// QUESTÃO 6 SEM USAR ARRAY:
+int q6(int numerobase, int numerobusca){
+  int maiorBase = 1;
+  int maiorBaseBusca = 1;
+  int k;
   int qtdOcorrencias = 0;
   
-  int i, j, k;
-  int maiorBase;
-  int divisor = 1; 
-  int multiplicador;
-  
-  for(i = numerobase, maiorBase = 1; i >= 10; i = i/10, maiorBase++);
-  
-  for(k = 1; k < maiorBase; k++) divisor *= 10; 
-  
-  for(j = maiorBase, multiplicador = 1 ; divisor > 0 ; j++, multiplicador*=10, divisor/=10){
-    int aux = (numerobase/divisor);
-    numerobase %= divisor;
-    if (numerobusca == aux) qtdOcorrencias++;
+  for(int i = numerobase ; i >= 10 ; i = i/10, maiorBase++);
+  for(int j = numerobusca ; j >= 10 ; j = j/10, maiorBaseBusca++);
+
+  for(int k = numerobase ; k > 0; k /= 10){
+    int restoBase = k % 10;
+    int restoBusca = numerobusca % 10;
+    if(maiorBaseBusca == 1 && numerobusca == restoBase) qtdOcorrencias ++;
+    else {
+      if (k % 10 == restoBusca){
+        int cont = 0;
+        int aux = numerobusca;
+        for(int l = k; l > 0 ; l /= 10){
+          restoBusca = aux%10;
+          if( l % 10 == restoBusca){
+            cont++;
+            restoBusca %= 10;
+            aux /=10;
+          } else break;
+          if(cont == maiorBaseBusca) qtdOcorrencias++;
+        }
+      }
+    }
   }
-  
   return qtdOcorrencias;
 }
+// QUESTÃO 6 USANDO ARRAY:
+// int q6(int numerobase, int numerobusca){
+//     int maiorBase = 1;
+//     int maiorBaseBusca = 1;
+//     int arrayBase[10];
+//     int arrayBusca[10];
+//     int qtdOcorrencias = 0;
+    
+//     for(int i = numerobase ; i >= 10; i = i/10, maiorBase++);
+//     for(int j = numerobusca ; j >= 10; j = j/10, maiorBaseBusca++);
+    
+//     for(int m = 0; m < 10; m++) arrayBase[m] = -1;
+//     for(int m = 0; m < 10; m++) arrayBusca[m] = -1;
+    
+//     for(int i = maiorBase -1 ; i > -1; i--){
+//         arrayBase[i] = numerobase % 10;
+//         numerobase /= 10;
+//     } 
+//     for(int i = maiorBaseBusca -1; i > -1; i--){
+//         arrayBusca[i] = numerobusca % 10;
+//         numerobusca /= 10;
+//     }
+    
+//     for (int k = 0, j = 0 ; arrayBase[k] != -1  ; k++){
+//         if (arrayBase[k] == arrayBusca[j]){
+//             int cont = 0;
+//             for(int m = k ; m < maiorBase; m++){
+//                 if (arrayBase[m] == arrayBusca[j]){
+//                     cont++;
+//                     j++;
+//                 } else break;
+//             }
+//             if (cont == maiorBaseBusca) qtdOcorrencias ++;
+//             j = 0;
+//         }
+//     }
+//   return qtdOcorrencias;
+// }
+
+int ehBissexto(int ano){
+  if ((ano % 4 == 0)  && ((ano % 100 != 0) || (ano % 400 == 0))){
+    return 1;
+  } else {
+    return 0;
+  }
+}
+      
