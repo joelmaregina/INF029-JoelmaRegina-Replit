@@ -1,1 +1,2 @@
-gcc corretor.c JoelmaSilva-20221160008-T1.c -o corrige
+gcc corretor.c JoelmaSilva-20221160008-T1.c -o corrige -lm
+gcc novoCorretor.c JoelmaSilva-20221160008-T1.c -o corrige2 -lm
