@@ -23,11 +23,12 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "JoelmaSilva-20221160008-T1.h" // Substitua pelo seu arquivo de header renomeado
+#include "JoelmaSilva-20221160008-T1.h"
 #include <stdlib.h>
 #include <math.h>
 
 int ehBissexto(int ano);
+int contaDias(int diaInicial, int diaFinal, int mesInicial, int mesFinal, int anoInicial, int anoFinal);
 
 /*
 ## função utilizada para testes  ##
@@ -212,25 +213,27 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
     } else if((dInicial.iAno <= dFinal.iAno) && (dInicial.iMes > dFinal.iMes)){
       dma.retorno = 4;
       return dma;
-    } else if((dInicial.iAno <= dFinal.iAno) && (dInicial.iMes <= dFinal.iMes) && dInicial.iDia > dFinal.iDia){
+    } else if((dInicial.iAno <= dFinal.iAno) && (dInicial.iMes == dFinal.iMes) && dInicial.iDia > dFinal.iDia){
       dma.retorno = 4;
       return dma;
     }
     
     //calcule os dados e armazene nas três variáveis a seguir:
-    dma.qtdAnos = dFinal.iAno - dInicial.iAno;
-    dma.qtdMeses = dFinal.iMes - dInicial.iMes;
-    dma.qtdDias = dFinal.iDia - dInicial.iDia;
-    //calcule a distância entre as datas
-    int meses[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-
-    //printf("DIFERENÇA: \n Dias: %d \n Meses: %d \n Anos: %d \n", dma.qtdDias, dma.qtdMeses, dma.qtdAnos);
+    if((dFinal.iAno >= dInicial.iAno) && (dFinal.iMes >= dInicial.iMes) && dFinal.iDia >= dInicial.iDia){
+      dma.qtdAnos = dFinal.iAno - dInicial.iAno;
+      dma.qtdMeses = dFinal.iMes - dInicial.iMes;
+      dma.qtdDias = dFinal.iDia - dInicial.iDia;
+    } else if ((dFinal.iAno >= dInicial.iAno) && (dFinal.iMes >= dInicial.iMes) && dFinal.iDia < dInicial.iDia){
+      dma.qtdAnos = dFinal.iAno - dInicial.iAno;
+      dma.qtdMeses = dma.qtdMeses = dFinal.iMes - dInicial.iMes - 1;
+      dma.qtdDias = contaDias(dInicial.iDia, dFinal.iDia, dInicial.iMes, dFinal.iMes, dInicial.iAno, dFinal.iAno);
+    }
+    
     //se tudo der certo
     dma.retorno = 1;
     return dma;
     
-  }
-    
+  } 
 }
 
 /*
@@ -376,7 +379,7 @@ int q5(int num)
  */
 // QUESTÃO 6 SEM USAR ARRAY:
 int q6(int numerobase, int numerobusca){
-int maiorBaseBusca = 1;
+    int maiorBaseBusca = 1;
     int k;
     int qtdOcorrencias = 0;
     
@@ -386,7 +389,7 @@ int maiorBaseBusca = 1;
         int restoBase = k % 10;
         int restoBusca = numerobusca % 10;
         if(maiorBaseBusca == 1 && numerobusca == restoBase) qtdOcorrencias ++;
-        else {
+        if (maiorBaseBusca > 1) {
           if (k % 10 == restoBusca){
             int cont = 0;
             int aux = numerobusca;
@@ -455,5 +458,31 @@ int ehBissexto(int ano){
   } else {
     return 0;
   }
+}
+
+int contaDias(int diaInicial, int diaFinal, int mesInicial, int mesFinal, int anoInicial, int anoFinal){
+  int meses[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+  int limiteMesInicial;
+  int limiteMesFinal;
+  int diasMesInicial;
+  int totalDias;
+
+  if(mesFinal - mesInicial == 1 && anoFinal == anoInicial){
+    if ((mesInicial == 2 && ehBissexto(anoInicial) == 1)) meses[1] = 29; 
+    diasMesInicial = (meses[mesInicial - 1]) - diaInicial;
+    totalDias = diasMesInicial + diaFinal;
+  } else if (mesFinal - mesInicial == 1 && anoFinal > anoInicial){
+    int penultimoMes = mesFinal - 1;
+    if (penultimoMes == 2 && ehBissexto(anoFinal) == 1) meses[1] = 29; 
+    diasMesInicial = (meses[mesInicial - 1]) - diaInicial;
+    totalDias = diasMesInicial + diaFinal;
+  }else{
+    int penultimoMes = mesFinal - 1;
+    if (penultimoMes == 2 && ehBissexto(anoFinal) == 1) meses[1] = 29;
+    diasMesInicial = (meses[penultimoMes - 1]) - diaInicial;
+    totalDias = diasMesInicial + diaFinal;
+  }
+
+  return totalDias;
 }
       

@@ -65,6 +65,7 @@ void testQ2(){
     qtdMeses = -1;
     qtdAnos = -1;
 
+    //printf("1. OK: 01/06/2015 \n 01/06/2016 \n\n");
     strcpy(datainicial, "01/06/2015");
     strcpy(datafinal, "01/06/2016");
     dma = q2(datainicial, datafinal);
@@ -98,6 +99,8 @@ void testQ2(){
     qtdMeses = -1;
     qtdAnos = -1;
 
+
+    //printf("2. OK : 06/06/2017 \n 07/07/2017 \n\n");
     strcpy(datainicial,"06/06/2017");
     strcpy(datafinal,"07/07/2017");
     dma = q2(datainicial, datafinal);
@@ -111,6 +114,7 @@ void testQ2(){
     qtdMeses = -1;
     qtdAnos = -1;
 
+    //printf("3. REVER: 06/06/2017 \n 05/07/2018 \n\n");
     strcpy(datainicial,"06/06/2017");
     strcpy(datafinal,"05/07/2018");
     dma = q2(datainicial, datafinal);
@@ -124,6 +128,7 @@ void testQ2(){
     qtdMeses = -1;
     qtdAnos = -1;
 
+    //printf("4. REVER: 26/07/2017 \n 25/08/2017 \n\n");
     strcpy(datainicial,"26/07/2017");
     strcpy(datafinal,"25/08/2017");
     dma = q2(datainicial, datafinal);
@@ -137,6 +142,7 @@ void testQ2(){
     qtdMeses = -1;
     qtdAnos = -1;
 
+    //printf("5. OK: 26/06/2017 \n 26/07/2017 \n\n");
     strcpy(datainicial,"26/06/2017");
     strcpy(datafinal,"26/07/2017");
     dma = q2(datainicial, datafinal);
@@ -150,6 +156,7 @@ void testQ2(){
     qtdMeses = -1;
     qtdAnos = -1;
 
+    //printf("6. REVER: 27/02/2016 \n 03/03/2017 \n\n");
     strcpy(datainicial,"27/02/2016");
     strcpy(datafinal,"03/03/2017");
     dma = q2(datainicial, datafinal);
@@ -163,6 +170,7 @@ void testQ2(){
     qtdMeses = -1;
     qtdAnos = -1;
 
+    //printf("7. REVER: 27/02/2015 \n 03/03/2016 \n\n");
     strcpy(datainicial,"27/02/2015");
     strcpy(datafinal,"03/03/2016");
     dma = q2(datainicial, datafinal);
@@ -176,6 +184,7 @@ void testQ2(){
     qtdMeses = -1;
     qtdAnos = -1;
 
+    //printf("8. OK: 28/01/2016 \n 29/02/2016 \n\n");
     strcpy(datainicial,"28/01/2016");
     strcpy(datafinal,"29/02/2016");
     dma = q2(datainicial, datafinal);
