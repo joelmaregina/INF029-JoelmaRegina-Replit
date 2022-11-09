@@ -474,8 +474,6 @@ int ehBissexto(int ano){
 
 int contaDias(int diaInicial, int diaFinal, int mesInicial, int mesFinal, int anoInicial, int anoFinal){
   int meses[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-  int limiteMesInicial;
-  int limiteMesFinal;
   int diasMesInicial;
   int totalDias;
 

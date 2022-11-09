@@ -225,15 +225,15 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
       dma.qtdDias = dFinal.iDia - dInicial.iDia;
     } else if ((dFinal.iAno >= dInicial.iAno) && (dFinal.iMes >= dInicial.iMes) && dFinal.iDia < dInicial.iDia){
       dma.qtdAnos = dFinal.iAno - dInicial.iAno;
-      dma.qtdMeses = dma.qtdMeses = dFinal.iMes - dInicial.iMes - 1;
+      dma.qtdMeses = dFinal.iMes - dInicial.iMes - 1;
       dma.qtdDias = contaDias(dInicial.iDia, dFinal.iDia, dInicial.iMes, dFinal.iMes, dInicial.iAno, dFinal.iAno);
     } else if((dFinal.iAno > dInicial.iAno) && (dFinal.iMes < dInicial.iMes) && dFinal.iDia < dInicial.iDia){
       dma.qtdAnos = dFinal.iAno - dInicial.iAno - 1;
-      dma.qtdMeses = dma.qtdMeses = (12 - dInicial.iMes) + dFinal.iMes;
+      dma.qtdMeses = (12 - dInicial.iMes) + dFinal.iMes;
       dma.qtdDias = contaDias(dInicial.iDia, dFinal.iDia, dInicial.iMes, dFinal.iMes, dInicial.iAno, dFinal.iAno);
     } else if ((dFinal.iAno > dInicial.iAno) && (dFinal.iMes < dInicial.iMes) && dFinal.iDia >= dInicial.iDia){
       dma.qtdAnos = dFinal.iAno - dInicial.iAno - 1;
-      dma.qtdMeses = dma.qtdMeses = (12 - dInicial.iMes) + dFinal.iMes;
+      dma.qtdMeses = (12 - dInicial.iMes) + dFinal.iMes;
       dma.qtdDias = dFinal.iDia - dInicial.iDia;
     } else if((dFinal.iAno == dInicial.iAno) && (dFinal.iMes > dInicial.iMes) && dFinal.iDia < dInicial.iDia){
       dma.qtdAnos = 0;
@@ -474,8 +474,6 @@ int ehBissexto(int ano){
 
 int contaDias(int diaInicial, int diaFinal, int mesInicial, int mesFinal, int anoInicial, int anoFinal){
   int meses[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-  int limiteMesInicial;
-  int limiteMesFinal;
   int diasMesInicial;
   int totalDias;
 
