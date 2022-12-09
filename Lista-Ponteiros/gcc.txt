@@ -1,0 +1,3 @@
+gcc Question1.c -o q1
+gcc Question2.c -o q2
+gcc Question3.c -o q3

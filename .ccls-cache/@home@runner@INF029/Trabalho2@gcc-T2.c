@@ -1,0 +1,1 @@
+gcc EstruturaVetores.c mainTeste.c -o corrige -lm
