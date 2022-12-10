@@ -25,9 +25,9 @@ int main()
     testeExcluirNumeroEspecifico();
     testeListar();
     testeRetornarTodosNumeros();
-    //testeMudarTamanhoEstrutura();
+    testeMudarTamanhoEstrutura();
     //testeListaEncadeada();
-    //finalizar();
+    finalizar();
 }
 int ligado = 0;
 void show_log(char *str)
@@ -236,20 +236,24 @@ void testeMudarTamanhoEstrutura()
 
     //modificar para tamanho de 3 para 1
     printf("6.MudarTamanhoEst: %d\n", modificarTamanhoEstruturaAuxiliar(2, -2) == SUCESSO);
-    printf("7.MudarTamanhoEst: %d\n", getQuantidadeElementosEstruturaAuxiliar(2) == 1);
+    printf("7.GetQtdElementosEstAux: %d\n", getQuantidadeElementosEstruturaAuxiliar(2) == 1);
+  
     printf("8.MudarTamanhoEst: %d\n", getDadosEstruturaAuxiliar(2, vet) == SUCESSO);
     printf("9.MudarTamanhoEst: %d\n", vet[0] == 3);
 
     //modificar para tamanho de 1 para 4
     printf("10.MudarTamanhoEst: %d\n", modificarTamanhoEstruturaAuxiliar(2, 3) == SUCESSO);
-    printf("11.MudarTamanhoEst: %d\n", getQuantidadeElementosEstruturaAuxiliar(2) == 1);
-    printf("12.MudarTamanhoEst: %d\n", getDadosEstruturaAuxiliar(2, vet) == SUCESSO);
+    printf("11.GetQtdElementosEstAux: %d\n", getQuantidadeElementosEstruturaAuxiliar(2) == 1);
+  
+    printf("12.GetDadosEstAux: %d\n", getDadosEstruturaAuxiliar(2, vet) == SUCESSO);
+  
+  
     printf("13.MudarTamanhoEst: %d\n", vet[0] == 3);
 
-    printf("14.MudarTamanhoEst: %d\n", inserirNumeroEmEstrutura(2, 4) == SUCESSO);
-    printf("15.MudarTamanhoEst: %d\n", inserirNumeroEmEstrutura(2, -2) == SUCESSO);
-    printf("16.MudarTamanhoEst: %d\n", inserirNumeroEmEstrutura(2, 6) == SUCESSO);
-    printf("17.MudarTamanhoEst: %d\n\n", inserirNumeroEmEstrutura(2, 5) == SEM_ESPACO);
+    printf("14.InserirNumeroEmEst: %d\n", inserirNumeroEmEstrutura(2, 4) == SUCESSO);
+    printf("15.InserirNumeroEmEst: %d\n", inserirNumeroEmEstrutura(2, -2) == SUCESSO);
+    printf("16.InserirNumeroEmEst: %d\n", inserirNumeroEmEstrutura(2, 6) == SUCESSO);
+    printf("17.InserirNumeroEmEst: %d\n\n", inserirNumeroEmEstrutura(2, 5) == SEM_ESPACO);
 }
 
 /*

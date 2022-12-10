@@ -15,9 +15,9 @@ typedef struct reg {
 } No;
 
 typedef struct vetorPrinc{
-  int estAuxiliar;
+  int *estAuxiliar;
   int tamanho;
-  int *aux;
+  int qtd;
 } estrutura;
 
 int criarEstruturaAuxiliar(int posicao, int tamanho);
