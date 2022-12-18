@@ -6,6 +6,8 @@
 
 estrutura vetorPrincipal[TAM];
 
+No *inserirElementos(No *inicio, int valor);
+
 /*
 Objetivo: criar estrutura auxiliar na posição 'posicao'.
 com tamanho 'tamanho'
@@ -323,19 +325,23 @@ Retorno (No*)
 */
 No *montarListaEncadeadaComCabecote()
 {
+  int i, j, cont;
+  No *inicioCabecote = NULL;
 
- /* No *novo = (No *)malloc(sizeof(No));
-	if(novo == NULL){ return NULL;
-	novo->conteudo = vetorPrincipal[0].estAuxilia;
-  
-  No *novo = (No *)malloc(sizeof(No));
-  for(int = 0, k = 0; i < 10; i++){
-      No *novo = (No *)malloc(sizeof(No));
-      if(novo == NULL) return NULL;
-    
-      
-  }*/
-    
+  //Cria cabeçote:
+  inicioCabecote = (No*) malloc(sizeof(No));
+
+  for(i = 0; i < TAM; i++){
+    if(vetorPrincipal[i].estAuxiliar != NULL && vetorPrincipal[i].qtd > 0){
+      for(j = 0 ; j < vetorPrincipal[i].qtd; j++){
+        inserirElementos(inicioCabecote, vetorPrincipal[i].estAuxiliar[j]);
+      }
+      cont++;
+    }
+  }
+
+  if(cont > 0) return inicioCabecote;
+  else return NULL;
 }
 
 /*
@@ -344,6 +350,16 @@ Retorno void
 */
 void getDadosListaEncadeadaComCabecote(No *inicio, int vetorAux[])
 {
+  int i;
+  No *atual;
+
+  atual = inicio -> prox;
+
+  for(i = 0; atual != NULL; i++){
+    vetorAux[i] = atual -> conteudo;
+    atual = atual -> prox;
+  }
+  
 }
 
 /*
@@ -354,6 +370,16 @@ Retorno
 */
 void destruirListaEncadeadaComCabecote(No **inicio)
 {
+  No *atual = *inicio;
+  No *prox;
+
+  while(atual != NULL){
+    prox = atual -> prox;
+    free(atual);
+    atual = prox;
+  }
+
+  *inicio = atual;
 }
 
 /*
@@ -372,4 +398,27 @@ para poder liberar todos os espaços de memória das estruturas auxiliares.
 
 void finalizar()
 {
+  for(int i = 0; i < TAM; i++) free(vetorPrincipal[i].estAuxiliar);
+}
+
+No *inserirElementos(No *inicio, int valor){
+  No *novo;
+  No *atual;
+
+  novo = (No*) malloc (sizeof (No));
+
+  atual = inicio;
+
+  if(inicio == NULL){
+    novo-> conteudo = valor;
+    novo -> prox = NULL;
+    inicio = novo;
+  } else {
+    while(atual -> prox != NULL) atual = atual -> prox;
+    atual -> prox = novo;
+    novo -> conteudo = valor;
+    novo -> prox = NULL;
+  }
+
+  return inicio;
 }

@@ -26,7 +26,7 @@ int main()
     testeListar();
     testeRetornarTodosNumeros();
     testeMudarTamanhoEstrutura();
-    //testeListaEncadeada();
+    testeListaEncadeada();
     finalizar();
 }
 int ligado = 0;
@@ -281,5 +281,5 @@ void testeListaEncadeada()
 
     destruirListaEncadeadaComCabecote(&inicio);
 
-    printf("%d\n", inicio == NULL);
+    printf("destruirListEncCCabec: %d\n", inicio == NULL);
 }

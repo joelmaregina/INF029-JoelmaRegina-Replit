@@ -14,6 +14,11 @@ typedef struct reg {
     struct reg *prox;
 } No;
 
+// typedef struct {
+//     No *inicio, *fim;
+//     int tam;
+// } Lista;
+
 typedef struct vetorPrinc{
   int *estAuxiliar;
   int tamanho;
